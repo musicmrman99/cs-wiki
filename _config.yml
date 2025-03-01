@@ -1,2 +1,5 @@
-name: A Computer Science and Engineering Wiki
+name: A Computer Science and Software Engineering Wiki
 title: null
+url: https://musicmrman99.github.io/cs-wiki
+exclude:
+  - '**/assets-src'
