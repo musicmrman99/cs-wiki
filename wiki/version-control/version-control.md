@@ -49,12 +49,14 @@ After installing git, you should configure some basic settings. Some of the most
 
 ## Git Core Concepts and Definitions
 
-TODO: Other stuff to mention:
+{% include checklist.html content="
+Other stuff to mention:
 - Branch naming requirements and conventions
 - Tag naming requirements and conventions
 - Keep each project and learning exercise in a separate git repository
 - The conceptionalisation of a commit as a version vs. as a change
 - Stashes
+" %}
 
 ### Repositories, Commits, and the Initial Commit
 
@@ -218,3 +220,5 @@ git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=
 git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
 git config --global alias.stat 'status --short --branch --untracked-files=all'
 ```
+
+{% include footer.html %}

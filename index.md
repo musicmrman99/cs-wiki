@@ -3,3 +3,5 @@
 # {{site.name}}
 
 TODO
+
+{% include footer.html %}
