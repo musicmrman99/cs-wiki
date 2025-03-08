@@ -13,7 +13,7 @@ There are multiple ways of interacting with git, but I suggest you use git on th
 
 ## Configuring Git
 
-After installing git, you should configure some basic settings. Some of the most commonly used settings are explained below, with suggestions about what values to uses. See [Common Git Configurations](#appendix-1-common-git-configurations) for some alternative configurations.
+After installing git, you should configure some basic settings. Some of the most commonly used settings are explained below, with suggestions about what values to use. See [Common Git Configurations](#appendix-1-common-git-configurations) for some alternative configurations.
 
 1. **Your identity**: Git stores some metadata with each version it creates, including the name and email address of who created the version. You must set the name and email address you want to use for this. If you want to have your code credited to you (which you usually will for professional or open-source work), then use your real name and a professional email address. To set these, run:
    ```sh
@@ -57,13 +57,17 @@ Other stuff to mention:
 
 ### Repositories, Commits, and the Initial Commit
 
-Git allows initially saving a copy of a subset[1] of the files (called the **tracked files**) within[2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenver the user requests it (ie. the user is *committing* to keep the changes, hence it's called a *commit*). Creating commits builds up a **history** of the set of tracked files as a whole[3]. Git stores this history in a sub-directory of the git root directory called `.git`.
+Git allows initially saving a copy of a subset[1] of the files (called the **tracked files**) within[2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[3]. Git stores this history in a sub-directory of the git root directory called `.git`.
 
 Git allows copying the history from any git root directory to another location, such as another computer or a server. Each copy of the history, including the original copy[4], is called a **clone**. The history of each clone can be modified independently after cloning. The combined history of all clones that share an initial commit is called a **git repository**[5].
 
 It's important to note that this definition of 'git repository' makes it an abstract concept - there is no single location of 'a repository'; a repository is **distributed** across all of its clones.
 
-**Key concepts**:
+{% include info.html content="
+**Key Point**: Git doesn't store complete versions of your files (except in the initial commit); it stores the **changes** between versions.
+" %}
+
+**Key Concepts**:
 
 - Git root directory
 - Tracked files
@@ -74,9 +78,9 @@ It's important to note that this definition of 'git repository' makes it an abst
 - Clones
 - Repositories
 
-**Demonstration of concepts (example)**:
+**Visualisation of concepts so far**:
 
-![Git concepts: repositories, commits, and the initial comit - overview]({{site.url}}/assets/images/version-control/git-concepts-repo-commit-initial-commit.drawio.png)
+![Git concepts: repositories, commits, and the initial comit - overview]({{site.url}}/assets/images/version-control/git-concepts-repo-commit-and-initial-commit.drawio.png)
 
 ### Changes and The Working Tree
 
@@ -87,7 +91,7 @@ After making any desired changes, the changes must be added to the **index** bef
 Any changes to tracked files made to the working tree that haven't been added to the index are called **unstaged changes**. Any changes added to the index are called **staged changes**.
 The combination of all staged *and* unstaged changes are called **uncommitted changes**.
 
-**Key concepts**:
+**Key Concepts**:
 
 - The working tree
 - The index
@@ -111,17 +115,17 @@ Therefore:
 
 Directories are not tracked.
 
-**Key concepts**:
+**Key Concepts**:
 
 - Tracked files (more details)
 
-**Demonstration of concepts (example)**:
+**Visualisation of concepts so far**:
 
 ![Git concepts: the working tree, tracked files, and changes]({{site.url}}/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png)
 
 ### References and Checkout - Branches, Tags, and `HEAD`
 
-When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[7].
+When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[7].
 
 Once the default branch is created, git allows making more branches. Branches allow working on and committing different sets of changes (called **divergent** histories) to the same files separately, as if making those different changes to separate copies of the files. However, unlike editing multiple copies, git keeps track of divergent changes in a way that provides much greater flexibility to combine (which git calls **merge**) different sets of changes in various ways.
 
@@ -138,6 +142,10 @@ Finally, git allows you to create static references called **tags** that do not 
 - HEAD
 - Tags
 
+**Visualisation of concepts so far**:
+
+![Git concepts: references and detached HEAD - overview]({{site.url}}/assets/images/version-control/git-concepts-references-and-checkout.drawio.png)
+
 ### Footnotes
 
 - [1] Possibly all files, or possibly no files.
@@ -152,8 +160,6 @@ Finally, git allows you to create static references called **tags** that do not 
 
 ## Full Walk-Through
 
-TODO
-
 ### Initialising a Git Root Directory
 
 To make a directory into a git root directory (by creating the `.git` directory inside of it), set the current directory to the desired directory, then run the following command:
@@ -162,13 +168,27 @@ To make a directory into a git root directory (by creating the `.git` directory 
 git init
 ```
 
-> **WARNING**: Once created, **DO NOT directly modify files** inside the `.git` directory. Doing so could corrupt the versioning metadata held by that clone of the repository, making git no longer able to manage it. Deleting a `.git` directory will delete all of the versions and all other versioning metadata that git has stored in that clone of the git repository. Some of this data may be available from other clones of the repository (if there are any), but some of it may not be.
+{% include tip.html content="
+The `.git` directory is a hidden file (because its name starts with a `.`), so you'll have to show hidden files in your file manager to see it. It is generally recommended to show hidden files and show file extensions while doing software engineering. If working on Windows, both of these settings are in the View menu of Windows Explorer (the default file manager on Windows systems).
+" %}
+
+{% include warning.html content="
+Once created, **DO NOT directly modify files** inside the `.git` directory. Doing so could corrupt the versioning metadata held by that clone of the repository, making git no longer able to manage that clone.
+
+Also note that deleting a `.git` directory will delete all of the versions and all other versioning metadata that git has stored in that clone of the git repository. Some of this data may be available from other clones of the repository (if there are any), but some of it may not be.
+" %}
 
 ### Starting a Repository
+
+To start a repository on a newly-initialised git root directory, create an initial commit. It is generally recommended to make the initial commit empty so that all content of the repo is easily rebasable. Git will refuse to create an empty commit by default, so add `--allow-empty` to `git commit` to force it:
 
 ```sh
 git commit --allow-empty
 ```
+
+### TODO
+
+{% include todo.html content="**TODO**" %}
 
 # Appendices
 
