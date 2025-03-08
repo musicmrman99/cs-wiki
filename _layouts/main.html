@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<nav style="display: flex; justify-content: space-between; border-bottom: 1px solid #444444; margin-bottom: 30px">
+    <div style="display: flex; justify-content: left">
+        <a href="{{site.url}}/wiki/version-control/version-control">Version Control</a>
+    </div>
+    <div></div>
+</nav>
+
+<header>
+    <h1>{{page.title}}</h1>
+</header>
+<main>
+    {{content}}
+</main>
+
+<footer style="display: flex; justify-content: space-between; border-top: 1px solid #444444; margin-top: 30px; padding-top: 15px">
+    <div></div>
+    <div>
+        <p style="margin: 0"><a href="{{site.github.repository_url}}/blob/main/{{page.path}}">Page source</a></p>
+        <p style="margin: 0"><a href="{{site.url}}/assets/attribution">Asset attribution</a></p>
+        <p style="margin: 0">Last generated: {{site.time}}</p>
+        <p style="margin: 0">
+            All text in this wiki is licenced under
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" style="display: inline-block;">
+                CC BY-SA 4.0
+                <img style="height: 22px!important; margin-left: 3px; vertical-align: text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="">
+                <img style="height: 22px!important; margin-left: 3px; vertical-align: text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="">
+                <img style="height: 22px!important; margin-left: 3px; vertical-align: text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="">
+            </a>
+            except where otherwise stated.
+        </p>
+    </div>
+</footer>

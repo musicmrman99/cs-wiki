@@ -1,4 +1,5 @@
 ---
+layout: main
 title: Version Control
 ---
 
@@ -73,7 +74,7 @@ It's important to note that this definition of 'git repository' makes it an abst
 
 **Demonstration of concepts (example)**:
 
-![Git concepts: repositories, commits, and the initial comit - overview]({{site.url}}/wiki/assets/images/version-control/git-concepts-repo-commit-initial-commit.drawio.png)
+![Git concepts: repositories, commits, and the initial comit - overview]({{site.url}}/assets/images/version-control/git-concepts-repo-commit-initial-commit.drawio.png)
 
 ### Changes and The Working Tree
 
@@ -114,7 +115,7 @@ Directories are not tracked.
 
 **Demonstration of concepts (example)**:
 
-![Git concepts: the working tree, tracked files, and changes]({{site.url}}/wiki/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png)
+![Git concepts: the working tree, tracked files, and changes]({{site.url}}/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png)
 
 ### References and Checkout - Branches, Tags, and `HEAD`
 
