@@ -46,12 +46,14 @@ After installing git, you should configure some basic settings. Some of the most
 
 ## Git Core Concepts and Definitions
 
-TODO: Other stuff to mention:
+{% include checklist.html content="
+Other stuff to mention:
 - Branch naming requirements and conventions
 - Tag naming requirements and conventions
 - Keep each project and learning exercise in a separate git repository
 - The conceptionalisation of a commit as a version vs. as a change
 - Stashes
+" %}
 
 ### Repositories, Commits, and the Initial Commit
 
