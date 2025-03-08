@@ -1,7 +1,6 @@
-{% include navigation.html %}
-
-# {{site.name}}
+---
+layout: default
+title: A Computer Science and Software Engineering Wiki
+---
 
 TODO
-
-{% include footer.html %}

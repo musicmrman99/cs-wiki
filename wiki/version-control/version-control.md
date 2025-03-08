@@ -2,10 +2,6 @@
 title: Version Control
 ---
 
-{% include navigation.html %}
-
-# {{page.title}}
-
 ## Installing Git and How to Run It
 
 If you're on Windows, Git for Windows sets up a basic Unix-like environment for you with git installed. If you're on Linux, just install git through your system package manager. If you're using WSL, then install it like you're on Linux.
@@ -218,5 +214,3 @@ git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=
 git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
 git config --global alias.stat 'status --short --branch --untracked-files=all'
 ```
-
-{% include footer.html %}
