@@ -218,3 +218,5 @@ git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=
 git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
 git config --global alias.stat 'status --short --branch --untracked-files=all'
 ```
+
+{% include footer.html %}
