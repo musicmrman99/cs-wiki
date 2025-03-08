@@ -186,6 +186,10 @@ To start a repository on a newly-initialised git root directory, create an initi
 git commit --allow-empty
 ```
 
+### Adding Changes and Committing
+
+{% include todo.html content="**TODO**" %}
+
 ### TODO
 
 {% include todo.html content="**TODO**" %}
