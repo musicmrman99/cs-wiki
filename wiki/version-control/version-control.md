@@ -46,7 +46,7 @@ After installing git, you should configure some basic settings. Some of the most
 
 ## Git Core Concepts and Definitions
 
-{% include checklist.html content="
+{% include todo.html content="
 Other stuff to mention:
 - Branch naming requirements and conventions
 - Tag naming requirements and conventions

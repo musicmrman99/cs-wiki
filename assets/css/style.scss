@@ -4,10 +4,10 @@
 @import "{{ site.theme }}";
 
 img {
-    background-color: transparent;
+    background-color: transparent!important;
 }
 
-.info-box {
+.callout {
     display: flex;
     justify-content: left;
     align-items: start;
@@ -16,4 +16,29 @@ img {
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
+}
+
+.callout img.callout-icon {
+    padding-right: 10px;
+}
+
+.todo {
+    background-color: #dcf7da;
+    border-color: #caf2bd;
+    color: #378f31;
+}
+.info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+.tip {
+    background-color: #f7f7d2;
+    border-color: #f2e8b6;
+    color: #8f8f2b;
+}
+.warning {
+    background-color: #f7d9d9;
+    border-color: #f2bdc6;
+    color: #8f3131;
 }
