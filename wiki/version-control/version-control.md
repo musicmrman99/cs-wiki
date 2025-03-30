@@ -61,9 +61,9 @@ After installing git, you should configure some basic settings. Some of the most
 - Repositories
 " %}
 
-Git allows initially saving a copy of a subset[1] of the files (called the **tracked files**) within[2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[3]. Git stores this history in a sub-directory of the git root directory called `.git`.
+Git allows initially saving a copy of a subset[^1] of the files (called the **tracked files**) within[^2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[^3]. Git stores this history in a sub-directory of the git root directory called `.git`.
 
-Git allows copying the history from any git root directory to another location, such as another computer or a server. Each copy of the history, including the original copy[4], is called a **clone**. The history of each clone can be modified independently after cloning. The combined history of all clones that share an initial commit is called a **git repository**[5].
+Git allows copying the history from any git root directory to another location, such as another computer or a server. Each copy of the history, including the original copy[^4], is called a **clone**. The history of each clone can be modified independently after cloning. The combined history of all clones that share an initial commit is called a **git repository**[^5].
 
 It's important to note that this definition of 'git repository' makes it an abstract concept - there is no single location of 'a repository'; a repository is **distributed** across all of its clones.
 
@@ -95,7 +95,7 @@ The above is technically incorrect, but is close to the implementation. Regardle
   - Uncommitted changes
 " %}
 
-Most clones[6] of a repository have a location (called the **working tree**) where the tracked files from one of the commits in the repository are placed (called being **checked out**, like a library book) so that they can then be edited (ie. *worked* on, hence it's called the *working* tree). By default, this is the same location as the git root directory of the clone.
+Most clones[^6] of a repository have a location (called the **working tree**) where the tracked files from one of the commits in the repository are placed (called being **checked out**, like a library book) so that they can then be edited (ie. *worked* on, hence it's called the *working* tree). By default, this is the same location as the git root directory of the clone.
 
 After making any desired changes, the changes must be added to the **index** before they can be committed. The index stores what the next commit would be if the user committed right now - it acts like a 'staging area' before the changes it contains are committed. Once the index contains a single stable and coherent set of changes, the user can commit those changes.
 
@@ -138,11 +138,11 @@ Directories are not tracked.
 - HEAD
 " %}
 
-When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[7].
+When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[^7].
 
 Once the default branch is created, git allows making more branches. Branches allow working on and committing different sets of changes (called **divergent** histories) to the same files separately, as if making those different changes to separate copies of the files. However, unlike editing multiple copies, git keeps track of divergent changes in a way that provides much greater flexibility for combining (called **merging**) different sets of changes in various ways.
 
-Only one branch can be checked out into the working tree[8] at any one time, but the user can switch between branches[9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will implicitly refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
+Only one branch can be checked out into the working tree[^8] at any one time, but the user can switch between branches[^9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will implicitly refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
 
 ### Detached `HEAD` and Tags
 
@@ -153,7 +153,7 @@ Only one branch can be checked out into the working tree[8] at any one time, but
 - Tags
 " %}
 
-It is also possible to checkout any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except since there is no branch checked out, any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion[10]. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
+It is also possible to checkout any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except since there is no branch checked out, any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
 
 Finally, git allows you to create static references called **tags** that do not change when you commit. If you checkout a tag, git will detach your `HEAD` and update it to refer to the commit that the tag refers to, rather than to the tag itself. Tags tend to be used to mark specific, historical versions of the files, such as previous 'releases' of a piece of software.
 
@@ -191,29 +191,15 @@ In relation to the above, it may be worth explaining precisely what a commit bei
 - The relationship between `HEAD` and the working tree
 " %}
 
-So far we've seen making changes on top of a checked-out commit, and checking out a different branch before making any changes, but what about checking out a different branch after making changes? If you checkout a branch while you have uncommitted changes, then git will try to apply those changes to the content of the files from the commit at the tip of the newly checked-out branch (or from the newly checked-out commit, if detaching `HEAD`). This is called **rebasing** your changes - where a set of changes originally made to one base commit is applied to another base commit. If git is unable to do this rebase automatically, it will abort the checkout[10]. Rebase-on-checkout is primarily useful when you have made some changes, but you had a different branch checked out at the time you made them than the branch you wanted to commit them to.
+So far we've seen making changes on top of a checked-out commit, and checking out a different branch before making any changes, but what about checking out a different branch after making changes? If you checkout a branch while you have uncommitted changes, then git will try to apply those changes to the content of the files from the commit at the tip of the newly checked-out branch (or from the newly checked-out commit, if detaching `HEAD`). This is called **rebasing** your changes - where a set of changes originally made to one base commit is applied to another base commit. If git is unable to do this rebase automatically, it will abort the checkout[^10]. Rebase-on-checkout is primarily useful when you have made some changes, but you had a different branch checked out at the time you made them than the branch you wanted to commit them to.
 
-It is also possible to switch to a different branch (or commit, if detaching `HEAD`) without changing the working tree *at all*. This is called **resetting**, and effectively marks all of the changes between the previous working tree and the new `HEAD` commit (viewed as a snapshot) as unstaged[11]. Resetting cannot cause merge conflicts. Resetting to `HEAD` simply unstages all of your staged changes. Resetting is primarily useful when you accidentally added (or committed after adding) fewer or more changes than you thought you had made, or when you want to split a commit (viewed as a change) into multiple commits.
+It is also possible to switch to a different branch (or commit, if detaching `HEAD`) without changing the working tree *at all*. This is called **resetting**, and effectively marks all of the changes between the previous working tree and the new `HEAD` commit (viewed as a snapshot) as unstaged[^11]. Resetting cannot cause merge conflicts. Resetting to `HEAD` simply unstages all of your staged changes. Resetting is primarily useful when you accidentally added (or committed after adding) fewer or more changes than you thought you had made, or when you want to split a commit (viewed as a change) into multiple commits.
 
 {% include info.html content="
 **Key Point**: Changing `HEAD` (switch) is separate from changing the working tree (checkout).
 
 Several commands both switch and checkout in one go, but these operations should be thought about separately. Rebase-on-checkout moves your changes onto a new `HEAD` (keeping your *changes* the same, but changing your snapshot), while reset just moves `HEAD` (keeping your *snapshot* the same, but combining your changes).
 " %}
-
-### Footnotes
-
-- [1] Possibly all files, or possibly no files.
-- [2] Files within any sub-directory of the git root directory, or any sub-directory of those, etc. can also be tracked by git.
-- [3] Rather than for each file separately.
-- [4] A git root directory is always the root directory of a clone, except before the git root directory has an initial commit. A git root directory without an initial commit *has no history* and therefore doesn't contain a repository, doesn't contain a clone, and isn't clonable.
-- [5] Some people and organisations define 'git repository' as the same as the above definition of 'clone'. However, a distinction has been made in this walk-through partly to reflect how the term is often used in practice, and partly so that we can more easily discuss the distributed nature of git.
-- [6] Non-bare clones. Bare clones only contain the history, with no working tree. Bare repositories are intended to be used for integrating a team's changes, like they are on version control hubs, rather than as a clone for making changes to the tracked files in the repository.
-- [7] The name of the default branch was configured in the previous section, but it is called `main` throughout this walk-through.
-- [8] Git supports having multiple working trees for a single clone, but this feature is rarely used because it is rarely useful - you can't physically work on multiple things at once (and shouldn't try to because multi-tasking makes you less productive), and keeping track of which version you're working on can be difficult and lead to confusion, so switching branches is usually the *more* efficient way of working.
-- [9] See [Checkout vs. Switch](#checkout-vs-switch) for caveats.
-- [10] You also have the option to perform a merge on checkout (`git checkout -m <other-branch>`), or force the checkout and discard your changes (`git checkout -f <other-branch>`), but these are rarely used - if you have merge conflicts, it is usually better to commit and perform a manual rebase, and discarding your changes is rarely what you want to do in the case of merge conflicts.
-[11] Or you can do a 'soft' reset, which makes them staged.
 
 ## Git Conventions
 
@@ -308,3 +294,17 @@ git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=
 git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
 git config --global alias.stat 'status --short --branch --untracked-files=all'
 ```
+
+## Footnotes
+
+[^1]: Possibly all files, or possibly no files.
+[^2]: Files within any sub-directory of the git root directory, or any sub-directory of those, etc. can also be tracked by git.
+[^3]: Rather than for each file separately.
+[^4]: A git root directory is always the root directory of a clone, except before the git root directory has an initial commit. A git root directory without an initial commit *has no history* and therefore doesn't contain a repository, doesn't contain a clone, and isn't clonable.
+[^5]: Some people and organisations define 'git repository' as the same as the above definition of 'clone'. However, a distinction has been made in this walk-through partly to reflect how the term is often used in practice, and partly so that we can more easily discuss the distributed nature of git.
+[^6]: Non-bare clones. Bare clones only contain the history, with no working tree. Bare repositories are intended to be used for integrating a team's changes, like they are on version control hubs, rather than as a clone for making changes to the tracked files in the repository.
+[^7]: The name of the default branch was configured in the previous section, but it is called `main` throughout this walk-through.
+[^8]: Git supports having multiple working trees for a single clone, but this feature is rarely used because it is rarely useful - you can't physically work on multiple things at once (and shouldn't try to because multi-tasking makes you less productive), and keeping track of which version you're working on can be difficult and lead to confusion, so switching branches is usually the *more* efficient way of working.
+[^9]: See [Checkout vs. Switch](#checkout-vs-switch) for caveats.
+[^10]: You also have the option to perform a merge on checkout (`git checkout -m <other-branch>`), or force the checkout and discard your changes (`git checkout -f <other-branch>`), but these are rarely used - if you have merge conflicts, it is usually better to commit and perform a manual rebase, and discarding your changes is rarely what you want to do in the case of merge conflicts.
+[^11]: Or you can do a 'soft' reset, which makes them staged.

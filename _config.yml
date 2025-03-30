@@ -3,3 +3,4 @@ title: null
 url: https://musicmrman99.github.io/cs-wiki
 exclude:
   - '**/assets-src'
+markdown: kramdown
