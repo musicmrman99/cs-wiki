@@ -3,8 +3,29 @@
 
 @import "{{ site.theme }}";
 
-img {
-    background-color: transparent!important;
+img, .markdown-body img {
+    background-color: transparent;
+}
+
+figure, .markdown-body figure {
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+figure > h6, .markdown-body figure > h6 {
+    margin-top: 0;
+}
+figcaption, .markdown-body figcaption {
+    padding: 3px;
+}
+
+aside, .markdown-body aside {
+    float: right;
+    width: 33%;
+    margin-left: 10px;
 }
 
 .callout {
@@ -22,6 +43,11 @@ img {
     padding-right: 10px;
 }
 
+.plain {
+    background-color: #f7f7f7;
+    border-color: #f2f2f2;
+    color: #8f8f8f;
+}
 .todo {
     background-color: #dcf7da;
     border-color: #caf2bd;

@@ -1,0 +1,13 @@
+<figure class="plain">
+    {% if include.title != null %}
+    <h6>{{include.title}}</h6>
+    {% endif %}
+
+    <img src="{{site.url}}{{include.url}}" alt="{{include.alt}}" />
+
+    {% if include.caption != null %}
+    <figcaption>
+        {{include.caption}}
+    </figcaption>
+    {% endif %}
+</figure>

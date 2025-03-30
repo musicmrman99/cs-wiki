@@ -48,6 +48,19 @@ After installing git, you should configure some basic settings. Some of the most
 
 ### Repositories, Commits, and the Initial Commit
 
+{% include plain-aside.html content="
+**Key Concepts**:
+
+- Git root directory
+- Tracked files
+- Commits
+- Initial commit
+- Changes
+- History
+- Clones
+- Repositories
+" %}
+
 Git allows initially saving a copy of a subset[1] of the files (called the **tracked files**) within[2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[3]. Git stores this history in a sub-directory of the git root directory called `.git`.
 
 Git allows copying the history from any git root directory to another location, such as another computer or a server. Each copy of the history, including the original copy[4], is called a **clone**. The history of each clone can be modified independently after cloning. The combined history of all clones that share an initial commit is called a **git repository**[5].
@@ -62,30 +75,15 @@ It's important to note that this definition of 'git repository' makes it an abst
 The above is technically incorrect, but is close to the implementation. Regardless, it may be worth re-wording to closer match the section on [Views of Commits](#views-of-commits).
 " %}
 
-**Key Concepts**:
-
-- Git root directory
-- Tracked files
-- Commits
-- Initial commit
-- Changes
-- History
-- Clones
-- Repositories
-
-**Visualisation of concepts so far**:
-
-![Git concepts: repositories, commits, and the initial comit - overview]({{site.url}}/assets/images/version-control/git-concepts-repo-commit-and-initial-commit.drawio.png)
+{% include figure.html
+   url="/assets/images/version-control/git-concepts-repo-commit-and-initial-commit.drawio.png"
+   alt="Git concepts: repositories, commits, and the initial comit - overview"
+   title="Visualisation of concepts so far"
+   caption="Git concepts: repositories, commits, and the initial comit - overview" %}
 
 ### Changes and The Working Tree
 
-Most clones[6] of a repository have a location (called the **working tree**) where the tracked files from one of the commits in the repository are placed (called being **checked out**, like a library book) so that they can then be edited (ie. *worked* on, hence it's called the *working* tree). By default, this is the same location as the git root directory of the clone.
-
-After making any desired changes, the changes must be added to the **index** before they can be committed. The index stores what the next commit would be if the user committed right now - it acts like a 'staging area' before the changes it contains are committed. Once the index contains a single stable and coherent set of changes, the user can commit those changes.
-
-Any changes to tracked files made to the working tree that haven't been added to the index are called **unstaged changes**. Any changes added to the index are called **staged changes**.
-The combination of all staged *and* unstaged changes are called **uncommitted changes**.
-
+{% include plain-aside.html content="
 **Key Concepts**:
 
 - The working tree
@@ -95,8 +93,22 @@ The combination of all staged *and* unstaged changes are called **uncommitted ch
   - Unstaged changes
   - Staged changes
   - Uncommitted changes
+" %}
+
+Most clones[6] of a repository have a location (called the **working tree**) where the tracked files from one of the commits in the repository are placed (called being **checked out**, like a library book) so that they can then be edited (ie. *worked* on, hence it's called the *working* tree). By default, this is the same location as the git root directory of the clone.
+
+After making any desired changes, the changes must be added to the **index** before they can be committed. The index stores what the next commit would be if the user committed right now - it acts like a 'staging area' before the changes it contains are committed. Once the index contains a single stable and coherent set of changes, the user can commit those changes.
+
+Any changes to tracked files made to the working tree that haven't been added to the index are called **unstaged changes**. Any changes added to the index are called **staged changes**.
+The combination of all staged *and* unstaged changes are called **uncommitted changes**.
 
 ### More on Tracked Files
+
+{% include plain-aside.html content="
+**Key Concepts**:
+
+- Tracked files (more details)
+" %}
 
 With the above definitions in hand, we can refine our definition of *tracked file*.
 
@@ -110,15 +122,21 @@ Therefore:
 
 Directories are not tracked.
 
-**Key Concepts**:
-
-- Tracked files (more details)
-
-**Visualisation of concepts so far**:
-
-![Git concepts: the working tree, tracked files, and changes]({{site.url}}/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png)
+{% include figure.html
+   url="/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png"
+   alt="Git concepts: the working tree, tracked files, and changes - overview"
+   title="Visualisation of concepts so far"
+   caption="Git concepts: the working tree, tracked files, and changes - overview" %}
 
 ### Branches and `HEAD`
+
+{% include plain-aside.html content="
+**Key Concepts**:
+
+- Refs (in general)
+- Branches
+- HEAD
+" %}
 
 When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[7].
 
@@ -126,28 +144,32 @@ Once the default branch is created, git allows making more branches. Branches al
 
 Only one branch can be checked out into the working tree[8] at any one time, but the user can switch between branches[9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will implicitly refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
 
+### Detached `HEAD` and Tags
+
+{% include plain-aside.html content="
 **Key Concepts**:
 
-- Refs, and the different kinds of refs ...
-- Branches
-- HEAD
-
-### Detached `HEAD` and Tags
+- Detatched HEAD
+- Tags
+" %}
 
 It is also possible to checkout any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except since there is no branch checked out, any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion[10]. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
 
 Finally, git allows you to create static references called **tags** that do not change when you commit. If you checkout a tag, git will detach your `HEAD` and update it to refer to the commit that the tag refers to, rather than to the tag itself. Tags tend to be used to mark specific, historical versions of the files, such as previous 'releases' of a piece of software.
 
-**Key Concepts**:
-
-- Detatched HEAD
-- Tags
-
-**Visualisation of concepts so far**:
-
-![Git concepts: references and detached HEAD - overview]({{site.url}}/assets/images/version-control/git-concepts-references-and-checkout.drawio.png)
+{% include figure.html
+   url="/assets/images/version-control/git-concepts-references-and-checkout.drawio.png"
+   alt="Git concepts: references and detached HEAD - overview"
+   title="Visualisation of concepts so far"
+   caption="Git concepts: references and detached HEAD - overview" %}
 
 ### Views of Commits
+
+{% include plain-aside.html content="
+**Key Concepts**:
+
+- Snapshots vs. Changes
+" %}
 
 There are two ways of thinking about a commit - as a **change**, and as a **snapshot** (ie. the set of all files that you would get if you checked out the commit). Git views commits in these different ways in different contexts (such as in different `git` commands).
 
@@ -159,11 +181,15 @@ When you want to *change* the files that a commit represents, you will view that
 In relation to the above, it may be worth explaining precisely what a commit being 'on' a branch means, including some potentially conflicting definitions.
 " %}
 
+### Checkout vs. Switch
+
+{% include plain-aside.html content="
 **Key Concepts**:
 
-- Snapshots vs. Changes
-
-### Checkout vs. Switch
+- Rebase on checkout
+- Reset
+- The relationship between `HEAD` and the working tree
+" %}
 
 So far we've seen making changes on top of a checked-out commit, and checking out a different branch before making any changes, but what about checking out a different branch after making changes? If you checkout a branch while you have uncommitted changes, then git will try to apply those changes to the content of the files from the commit at the tip of the newly checked-out branch (or from the newly checked-out commit, if detaching `HEAD`). This is called **rebasing** your changes - where a set of changes originally made to one base commit is applied to another base commit. If git is unable to do this rebase automatically, it will abort the checkout[10]. Rebase-on-checkout is primarily useful when you have made some changes, but you had a different branch checked out at the time you made them than the branch you wanted to commit them to.
 
@@ -174,12 +200,6 @@ It is also possible to switch to a different branch (or commit, if detaching `HE
 
 Several commands both switch and checkout in one go, but these operations should be thought about separately. Rebase-on-checkout moves your changes onto a new `HEAD` (keeping your *changes* the same, but changing your snapshot), while reset just moves `HEAD` (keeping your *snapshot* the same, but combining your changes).
 " %}
-
-**Key Concepts**:
-
-- Rebase on checkout
-- Reset
-- The relationship between `HEAD` and the working tree
 
 ### Footnotes
 
