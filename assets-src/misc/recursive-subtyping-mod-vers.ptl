@@ -1,0 +1,155 @@
+# Decls
+# --------------------------------------------------
+
+# Extract
+extract of | for all | starting at | from | : #{
+  expected map : @1
+  placeholder type : @2[type]
+  root type : @3[type]
+  source map : @4
+
+  Like `extract of | from |`, except this will:
+  - Check that the root type is an instance of the placeholder type
+  - Search for instances of the root type in the source map
+  - Traverse the source map according to the expected map, including
+    substituting instances of the placeholder type for the next type
+    found in the the type chain in each match attempt.
+}#
+
+# Cached
+cached | : #{ is cached? }#
+cached : { using cached | }
+cached from | : #{ creates a cached/memoised version of @1[block] }#
+
+# Subtype
+subtype of | | : {  }
+subtype of | : { using subtype of | | }
+subtype of | from | : { typed (subtype of @1) @2 }
+
+# Proof
+# --------------------------------------------------
+
+#{
+  ---
+  Problem 1: Why do we need subtypes?
+  ---
+
+  If we just said `extract [T -> T]`, we wouldn't know which type on
+  the 'to' side *made* that object a T, even if the object is typed
+  with T, *and it might not be* (eg. two types which, when combined,
+  result in objects that happen to be of type T). We can't *infer*
+  that a type, or a set of types together, is a subtype of T (that's
+  an undecidable problem); we only know that the given object is of
+  type T.
+
+  However, that means we could only use T (not whatever type(s) made
+  that object a T) when checking the object that was the RHS as the
+  LHS of this relation, recursively. As such, we could only check
+  that the entire graph consisted of [T -> T] relations, but not
+  that it consisted of [T -> U is-a T -> V is-a U -> ...] relations.
+
+  Therefore, we MUST make the user explicitly declare that a type is
+  *guaranteed* to make all objects of that type also be of type T,
+  ie. declare that the type is a subtype of T.
+
+  'subtype' here being defined as in the LSP, which can be stated as
+  either:
+  - All characteristics of T hold for all subtypes of T, or
+  - All subtypes of T "require no more and provide no less" than T
+
+  ---
+  Problem 2: How do we know what subtype we should use for the next
+             relation check?
+  ---
+
+  The simple answer is "try them all", but that might give us
+  multiple valid resulting graphs from the extraction.
+
+  ---
+
+  | is (by id) | : #{}#
+  is (by id) | : #{}#
+
+  extract [is (by id) T -> subtype of T]
+
+  take value of RHS, use as T, repeat recursively
+
+  ---
+
+  Is x of a type X that is a subtype of another type Y
+  any type of x is subtype of Y
+  create a type that matches any object that has a given type of type
+
+  a type that represents any type that is `typed (subtype of T) |`
+}#
+
+_taxonomy of | from | : {
+  T : type of []
+  extract of
+    #{
+      `subtype of |` creates a (cached) nominal type that other types
+      can be `typed | |` as to mark them as a 'subtype' of another type.
+      This type's functional check is same as the given type to ensure
+      it really is a subtype before tagging it as such. Because this
+      type is nominal, it will only match types explicitly typed as
+      subtypes.
+    }#
+    [T -> subtype of T]
+
+    #{
+      Must be nominal, or the extraction would have an excessive time
+      complexity. This also means there isn't a `taxonomy |` version -
+      the root type is *required*.
+    }#
+    for all nominal T starting at nominal @1
+
+    from @2
+}
+taxonomy of | | : { not empty _taxonomy of @1 from @2 }
+taxonomy of | : { cached from using taxonomy of @ | }
+taxonomy of | from | : { typed (taxonomy of @1) _taxonomy of @1 from @2 }
+
+# ===========
+
+root type : Animal
+???
+
+# Decls (Old - not needed for this purpose)
+# --------------------------------------------------
+
+# Any
+any | : typed using type | {true}
+any : { using any | }
+
+# Item (of a container)
+item | : nominal any
+item : { using item | }
+item from | : { typed item @ }
+
+# Parameterised Item (so that a container can say it's an item *of that container's type*)
+item of | | : {
+  item type | : @1[type]
+  item @2 and item type @2
+}
+item of | : { cached using item of @1 | }
+item of | from | : { item from typed (item of @1) @2 }
+
+========== UP TO HERE ==========
+
+# Node
+node | : type of [
+  item of node,
+  list of node
+]
+node : using node |
+node from | : {[
+  typed (item of node) @1,
+  typed (list of node) []
+]}
+
+# Parameterised Node
+node of | : type of [
+  node,
+  list of (node and any of @1[type])
+]
+node of | from | : {???}
