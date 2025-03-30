@@ -236,7 +236,7 @@ git init
 ```
 
 {% include tip.html content="
-The `.git` directory is a hidden file (because its name starts with a `.`), so you'll have to show hidden files in your file manager to see it. It is generally recommended to show hidden files and show file extensions while doing software engineering. If working on Windows, both of these settings are in the View menu of Windows Explorer (the default file manager on Windows systems).
+The `.git` directory is a hidden file (because its name starts with a `.`), so you'll have to show hidden files in your file manager to see it. It is generally recommended to show hidden files and show file extensions while doing software engineering. If working on Windows, both of these settings are in the View menu of File Explorer (the default file manager on Windows systems).
 " %}
 
 {% include warning.html content="
