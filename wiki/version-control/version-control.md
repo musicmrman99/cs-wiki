@@ -46,15 +46,6 @@ After installing git, you should configure some basic settings. Some of the most
 
 ## Git Core Concepts and Definitions
 
-{% include todo.html content="
-Other stuff to mention:
-- Branch naming requirements and conventions
-- Tag naming requirements and conventions
-- Keep each project and learning exercise in a separate git repository
-- The conceptionalisation of a commit as a version vs. as a change
-- Stashes
-" %}
-
 ### Repositories, Commits, and the Initial Commit
 
 Git allows initially saving a copy of a subset[1] of the files (called the **tracked files**) within[2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[3]. Git stores this history in a sub-directory of the git root directory called `.git`.
@@ -123,28 +114,68 @@ Directories are not tracked.
 
 ![Git concepts: the working tree, tracked files, and changes]({{site.url}}/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png)
 
-### References and Checkout - Branches, Tags, and `HEAD`
+### Branches and `HEAD`
 
 When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[7].
 
-Once the default branch is created, git allows making more branches. Branches allow working on and committing different sets of changes (called **divergent** histories) to the same files separately, as if making those different changes to separate copies of the files. However, unlike editing multiple copies, git keeps track of divergent changes in a way that provides much greater flexibility to combine (which git calls **merge**) different sets of changes in various ways.
+Once the default branch is created, git allows making more branches. Branches allow working on and committing different sets of changes (called **divergent** histories) to the same files separately, as if making those different changes to separate copies of the files. However, unlike editing multiple copies, git keeps track of divergent changes in a way that provides much greater flexibility for combining (called **merging**) different sets of changes in various ways.
 
-Only one branch can be checked out into the[8] working tree at any one time, but the user can switch between branches at any time[9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will ultimately refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
-
-It is also possible to check out any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except that since there is no branch checked out, then any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion[10]. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
-
-Finally, git allows you to create static references called **tags** that do not change when you commit. If you check out a tag, git will detach your `HEAD` and update it to refer to the commit that the tag refers to, rather than to the tag itself. Tags tend to be used to mark specific, historical versions of the files, such as previous 'releases' of a piece of software.
+Only one branch can be checked out into the working tree[8] at any one time, but the user can switch between branches[9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will implicitly refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
 
 **Key Concepts**:
 
 - Refs, and the different kinds of refs ...
 - Branches
 - HEAD
+
+### Detached `HEAD` and Tags
+
+It is also possible to checkout any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except since there is no branch checked out, any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion[10]. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
+
+Finally, git allows you to create static references called **tags** that do not change when you commit. If you checkout a tag, git will detach your `HEAD` and update it to refer to the commit that the tag refers to, rather than to the tag itself. Tags tend to be used to mark specific, historical versions of the files, such as previous 'releases' of a piece of software.
+
+**Key Concepts**:
+
+- Detatched HEAD
 - Tags
 
 **Visualisation of concepts so far**:
 
 ![Git concepts: references and detached HEAD - overview]({{site.url}}/assets/images/version-control/git-concepts-references-and-checkout.drawio.png)
+
+### Views of Commits
+
+There are two ways of thinking about a commit - as a **change**, and as a **snapshot** (ie. the set of all files that you would get if you checked out the commit). Git views commits in these different ways in different contexts (such as in different `git` commands).
+
+When you want to *use* the files that a commit represents (such as to run them, deploy them, share them, etc), you will view that commit like a snapshot. Tags are designed to be viewed like this - they are created to be checked out and used without making further changes.
+
+When you want to *change* the files that a commit represents, you will view that commit like a snapshot (putting it in the role of a **base commit**), and view the set of commits based on it like changes. Branches are designed to be viewed like this - with the last commit that was also on the default branch being seen as the base commit, and all commits based on it being the changes that are 'on' that branch.
+
+{% include todo.html content="
+In relation to the above, it may be worth explaining precisely what a commit being 'on' a branch means, including some potentially conflicting definitions.
+" %}
+
+**Key Concepts**:
+
+- Snapshots vs. Changes
+
+### Checkout vs. Switch
+
+So far we've seen making changes on top of a checked-out commit, and checking out a different branch before making any changes, but what about checking out a different branch after making changes? If you checkout a branch while you have uncommitted changes, then git will try to apply those changes to the content of the files from the commit at the tip of the newly checked-out branch (or from the newly checked-out commit, if detaching `HEAD`). This is called **rebasing** your changes - where a set of changes originally made to one base commit is applied to another base commit. If git is unable to do this rebase automatically, it will abort the checkout[10]. Rebase-on-checkout is primarily useful when you have made some changes, but you had a different branch checked out at the time you made them than the branch you wanted to commit them to.
+
+It is also possible to switch to a different branch (or commit, if detaching `HEAD`) without changing the working tree *at all*. This is called **resetting**, and effectively marks all of the changes between the previous working tree and the new `HEAD` commit (viewed as a snapshot) as unstaged[11]. Resetting cannot cause merge conflicts. Resetting to `HEAD` simply unstages all of your staged changes. Resetting is primarily useful when you accidentally added (or committed after adding) fewer or more changes than you thought you had made, or when you want to split a commit (viewed as a change) into multiple commits.
+
+{% include info.html content="
+**Key Point**: Changing `HEAD` (switch) is separate from changing the working tree (checkout).
+
+Several commands both checkout and switch in one go, but these operations should be thought about separately. Rebase-on-checkout moves your changes onto a new `HEAD` (keeping your *changes* the same, but changing your snapshot), while reset just moves `HEAD` (keeping your *snapshot* the same, but combining your changes).
+" %}
+
+**Key Concepts**:
+
+- Rebase on checkout
+- Reset
+- The relationship between `HEAD` and the working tree
 
 ### Footnotes
 
@@ -156,7 +187,19 @@ Finally, git allows you to create static references called **tags** that do not 
 - [6] Non-bare clones. Bare clones only contain the history, with no working tree. Bare repositories are intended to be used for integrating a team's changes, like they are on version control hubs, rather than as a clone for making changes to the tracked files in the repository.
 - [7] The name of the default branch was configured in the previous section, but it is called `main` throughout this walk-through.
 - [8] Git supports having multiple working trees for a single clone, but this feature is rarely used because it is rarely useful - you can't physically work on multiple things at once (and shouldn't try to because multi-tasking makes you less productive), and keeping track of which version you're working on can be difficult and lead to confusion, so switching branches is usually the *more* efficient way of working.
-- [9] If you switch branches while you have uncommitted changes, then git will try to apply those changes 'on top of' the content of the files from the commit at the tip of the newly checked-out branch. If git is unable to do this automatically, it will put the files for which it is unable to do it into an 'unmerged' state due to 'merge conflicts'. Merge conflicts, including other circumstances that they can happen in and how to resolve them, is discussed in much more detail later in this walk-through.
+- [9] See [Checkout vs. Switch](#checkout-vs-switch) for caveats.
+- [10] You also have the option to perform a merge on checkout (`git checkout -m <other-branch>`), or force the checkout and discard your changes (`git checkout -f <other-branch>`), but these are rarely used - if you have merge conflicts, it is usually better to commit and perform a manual rebase, and discarding your changes is rarely what you want to do in the case of merge conflicts.
+[11] Or you can do a 'soft' reset, which makes them staged.
+
+## Git Conventions
+
+{% include todo.html content="
+Other stuff to mention:
+- Branch naming requirements and conventions
+- Tag naming requirements and conventions
+- Keep each project and learning exercise in a separate git repository
+- Stashes
+" %}
 
 ## Full Walk-Through
 
