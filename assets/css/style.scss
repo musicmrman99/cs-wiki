@@ -44,6 +44,7 @@ aside, .markdown-body aside {
     height: 3rem;
     border-radius: 50%;
     text-decoration: none;
+    font-size: 1.5rem;
 }
 
 .slider {
@@ -112,7 +113,18 @@ aside, .markdown-body aside {
 .plain:focus {
     background-color: #f2f2f2;
     border-color: #ededed;
-    color: #8f8f8f;
+    color: #858585;
+}
+
+.emphasised {
+    background-color: #ebebeb;
+    border-color: #e6e6e6;
+    color: #808080;
+}
+.emphasised:focus {
+    background-color: #e6e6e6;
+    border-color: #e0e0e0;
+    color: #787878;
 }
 
 .todo {

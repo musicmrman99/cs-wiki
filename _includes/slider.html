@@ -6,7 +6,7 @@
     <p class="slider-nav">
         Slides:
         {% for slide_ref in include.deck.slides -%}
-        <a href="#slide-{{ include.deck.ref }}-{{ forloop.index }}" class="plain button">{{forloop.index}}</a>
+        <a href="#slide-{{ include.deck.ref }}-{{ forloop.index }}" class="emphasised button">{{forloop.index}}</a>
         {%- endfor %}
     </p>
 
@@ -16,10 +16,10 @@
         <div id="slide-{{ include.deck.ref }}-{{ forloop.index }}" class="slide">
             <div class="slide-nav">
                 {% if forloop.index > 1 %}
-                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="plain prev button">&lt;</a>
+                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
                 {% endif %}
                 {% if forloop.index < forloop.length %}
-                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="plain next button">&gt;</a>
+                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
                 {% endif %}
             </div>
 
@@ -27,10 +27,10 @@
 
             <div class="slide-nav">
                 {% if forloop.index > 1 %}
-                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="plain prev button">&lt;</a>
+                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
                 {% endif %}
                 {% if forloop.index < forloop.length %}
-                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="plain next button">&gt;</a>
+                <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
                 {% endif %}
             </div>
         </div>
