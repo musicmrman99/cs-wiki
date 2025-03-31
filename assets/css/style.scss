@@ -62,21 +62,10 @@ aside, .markdown-body aside {
     -webkit-overflow-scrolling: touch;
 }
 .slide {
-    /* size and alignment in parent */
     scroll-snap-align: start; /* alignment in parent scroll container */
     width: 100%;              /* slide area is width of slider */
     flex-shrink: 0;           /* keep full width in flex container */
     margin-right: 50px;       /* gap between slides */
-
-    /* alignment of children */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* testing / style */
-    background: #eee;
-    border-radius: 10px;
-    font-size: 100px;
 }
 
 /* Callouts

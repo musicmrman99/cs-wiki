@@ -1,13 +1,14 @@
 <div class="slider">
-    <div class="slider-nav">
-        {% for slide_id in include.deck.slides -%}
+    <p class="slider-nav">
+        Slides:
+        {% for slide_ref in include.deck.slides -%}
         <a href="#slide-{{forloop.index}}" class="plain">{{forloop.index}}</a>
         {%- endfor %}
-    </div>
+    </p>
 
     <div class="slides">
-        {% for slide_id in include.deck.slides -%}
-        {% assign slide = site.slides | where: 'id', slide_id | first -%}
+        {% for slide_ref in include.deck.slides -%}
+        {% assign slide = site.slides | where: 'ref', slide_ref | first -%}
         <div id="slide-{{forloop.index}}" class="slide">
             {{ slide.content | markdownify }}
         </div>

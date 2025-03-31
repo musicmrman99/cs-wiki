@@ -1,5 +1,5 @@
 ---
-id: vc-configuration
+ref: vc-configuration
 ---
 
 ## Configuring Git

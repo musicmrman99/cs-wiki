@@ -1,5 +1,5 @@
 ---
-id: vc-installation
+ref: vc-installation
 ---
 
 ## Installing Git and How to Run It
