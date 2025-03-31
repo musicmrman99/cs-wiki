@@ -5,7 +5,7 @@ title: Version Control
 decks:
    vc_git_intro:
       ref: vc-git-intro
-      title: "Version Control: Git Introduction"
+      title: "Version Control: Introduction to Git"
       slides:
       - vc-installation
       - vc-configuration
