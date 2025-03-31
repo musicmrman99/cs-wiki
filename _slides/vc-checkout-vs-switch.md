@@ -1,5 +1,6 @@
 ---
 ref: vc-checkout-vs-switch
+type: info
 ---
 
 ### Checkout vs. Switch

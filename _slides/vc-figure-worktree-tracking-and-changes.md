@@ -1,5 +1,6 @@
 ---
 ref: vc-figure-worktree-tracking-and-changes
+type: figure
 ---
 
 {% include figure.html

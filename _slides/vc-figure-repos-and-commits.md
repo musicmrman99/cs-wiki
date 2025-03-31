@@ -1,5 +1,6 @@
 ---
 ref: vc-figure-repos-and-commits
+type: figure
 ---
 
 {% include figure.html

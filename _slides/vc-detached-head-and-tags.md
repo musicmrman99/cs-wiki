@@ -1,5 +1,6 @@
 ---
 ref: vc-detached-head-and-tags
+type: info
 ---
 
 ### Detached `HEAD` and Tags

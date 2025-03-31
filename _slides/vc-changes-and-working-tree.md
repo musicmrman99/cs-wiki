@@ -1,5 +1,6 @@
 ---
 ref: vc-changes-and-working-tree
+type: info
 ---
 
 ### Changes and The Working Tree

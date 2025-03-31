@@ -1,5 +1,6 @@
 ---
 ref: vc-views-of-commits
+type: info
 ---
 
 ### Views of Commits

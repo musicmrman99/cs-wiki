@@ -1,5 +1,6 @@
 ---
 ref: vc-figure-refs-and-checkout
+type: figure
 ---
 
 {% include figure.html

@@ -1,5 +1,6 @@
 ---
 ref: vc-configuration
+type: info
 ---
 
 ### Configuring Git

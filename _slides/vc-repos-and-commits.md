@@ -1,5 +1,6 @@
 ---
 ref: vc-repos-and-commits
+type: info
 ---
 
 ### Repositories, Commits, and the Initial Commit

@@ -1,5 +1,6 @@
 ---
 ref: vc-installation
+type: info
 ---
 
 ### Installing Git and How to Run It

@@ -1,5 +1,6 @@
 ---
 ref: vc-branches-and-head
+type: info
 ---
 
 ### Branches and `HEAD`

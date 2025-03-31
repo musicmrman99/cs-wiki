@@ -1,5 +1,6 @@
 ---
 ref: vc-tracked-files-details
+type: info
 ---
 
 ### More on Tracked Files

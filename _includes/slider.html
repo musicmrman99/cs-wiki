@@ -6,7 +6,21 @@
     <p class="slider-nav">
         Slides:
         {% for slide_ref in include.deck.slides -%}
-        <a href="#slide-{{ include.deck.ref }}-{{ forloop.index }}" class="emphasised button">{{forloop.index}}</a>
+        {% assign slide = site.slides | where: 'ref', slide_ref | first -%}
+
+        {% assign slide_nav_style = 'plain' -%}
+        {% if slide.type == 'info' -%}
+            {% assign slide_nav_style = 'info' -%}
+        {% elsif slide.type == 'tip' -%}
+            {% assign slide_nav_style = 'tip' -%}
+        {% elsif slide.type == 'todo' -%}
+            {% assign slide_nav_style = 'todo' -%}
+        {% elsif slide.type == 'warning' -%}
+            {% assign slide_nav_style = 'warning' -%}
+        {% elsif slide.type == 'figure' -%}
+            {% assign slide_nav_style = 'emphasised' -%}
+        {%- endif %}
+        <a href="#slide-{{ include.deck.ref }}-{{ forloop.index }}" class="{{ slide_nav_style }} button">{{ forloop.index }}</a>
         {%- endfor %}
     </p>
 
@@ -15,31 +29,32 @@
         {% assign slide = site.slides | where: 'ref', slide_ref | first -%}
         <div id="slide-{{ include.deck.ref }}-{{ forloop.index }}" class="slide">
             <div class="slide-nav">
-                {% if forloop.index > 1 %}
+                {% if forloop.index > 1 -%}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
-                {% else %}
+                {%- else -%}
                 <div></div>
-                {% endif %}
-                {% if forloop.index < forloop.length %}
+                {%- endif %}
+                {% if forloop.index < forloop.length -%}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
-                {% else %}
+                {%- else -%}
                 <div></div>
-                {% endif %}
+                {%- endif %}
             </div>
 
             {{ slide.content | markdownify }}
 
             <div class="slide-nav">
-                {% if forloop.index > 1 %}
+                {% if forloop.index > 1 -%}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
-                {% else %}
+                {%- else -%}
                 <div></div>
-                {% endif %}
-                {% if forloop.index < forloop.length %}
+                {%- endif %}
+
+                {% if forloop.index < forloop.length -%}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
-                {% else %}
+                {%- else -%}
                 <div></div>
-                {% endif %}
+                {%- endif %}
             </div>
         </div>
         {%- endfor %}
