@@ -3,13 +3,15 @@ layout: main
 title: Version Control
 
 decks:
-   vc_intro:
+   vc_git_intro:
+      ref: vc-git-intro
       title: "Version Control: Git Introduction"
       slides:
       - vc-installation
       - vc-configuration
 
-   vc_concepts:
+   vc_git_concepts:
+      ref: vc-git-core-concepts
       title: "Version Control: Git Core Concepts"
       slides:
       - vc-repos-and-commits
@@ -24,8 +26,8 @@ decks:
       - vc-checkout-vs-switch
 ---
 
-{% include slider.html deck=page.decks.vc_intro %}
-{% include slider.html deck=page.decks.vc_concepts %}
+{% include slider.html deck=page.decks.vc_git_intro %}
+{% include slider.html deck=page.decks.vc_git_concepts %}
 
 ## Git Conventions
 

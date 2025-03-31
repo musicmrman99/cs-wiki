@@ -36,24 +36,24 @@ aside, .markdown-body aside {
 
 /* Based on: https://css-tricks.com/css-only-carousel/ */
 
-.slider {
-    overflow: hidden;
-}
-
-.slider-nav {
-    display: flex;
-    gap: 10px;
-}
-.slider-nav > a {
+.button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     text-decoration: none;
 }
 
+.slider {
+    overflow: hidden;
+}
+.slider-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .slides {
     display: flex;
     overflow-x: auto;
@@ -66,6 +66,21 @@ aside, .markdown-body aside {
     width: 100%;              /* slide area is width of slider */
     flex-shrink: 0;           /* keep full width in flex container */
     margin-right: 50px;       /* gap between slides */
+}
+
+.slide-nav {
+    position: relative;
+    height: 3rem;
+}
+.slide-nav > .button {
+    position: absolute;
+    top: 0;
+}
+.slide-nav > .prev {
+    left: 0;
+}
+.slide-nav > .next {
+    right: 0;
 }
 
 /* Callouts
