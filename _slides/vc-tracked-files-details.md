@@ -21,9 +21,3 @@ Therefore:
 - Adding "the removal of a file" (as a change) to the index *and committing it* will make that file no longer tracked because it will no longer exist in the checked-out commit (which is the new commit) and there are no changes to it in the index.
 
 Directories are not tracked.
-
-{% include figure.html
-   url="/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png"
-   alt="Git concepts: the working tree, tracked files, and changes - overview"
-   title="Visualisation of concepts so far"
-   caption="Git concepts: the working tree, tracked files, and changes - overview" %}

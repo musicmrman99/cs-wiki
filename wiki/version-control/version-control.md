@@ -9,10 +9,13 @@ decks:
       - vc-installation
       - vc-configuration
       - vc-repos-and-commits
+      - vc-figure-repos-and-commits
       - vc-changes-and-working-tree
       - vc-tracked-files-details
+      - vc-figure-worktree-tracking-and-changes
       - vc-branches-and-head
       - vc-detached-head-and-tags
+      - vc-figure-refs-and-checkout
       - vc-views-of-commits
       - vc-checkout-vs-switch
 ---

@@ -30,9 +30,3 @@ It's important to note that this definition of 'git repository' makes it an abst
 {% include todo.html content="
 The above is technically incorrect, but is close to the implementation. Regardless, it may be worth re-wording to closer match the section on [Views of Commits](#views-of-commits).
 " %}
-
-{% include figure.html
-   url="/assets/images/version-control/git-concepts-repo-commit-and-initial-commit.drawio.png"
-   alt="Git concepts: repositories, commits, and the initial comit - overview"
-   title="Visualisation of concepts so far"
-   caption="Git concepts: repositories, commits, and the initial comit - overview" %}
