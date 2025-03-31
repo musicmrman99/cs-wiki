@@ -3,11 +3,15 @@ layout: main
 title: Version Control
 
 decks:
-   version_control:
-      name: Version Control
+   vc_intro:
+      title: "Version Control: Git Introduction"
       slides:
       - vc-installation
       - vc-configuration
+
+   vc_concepts:
+      title: "Version Control: Git Core Concepts"
+      slides:
       - vc-repos-and-commits
       - vc-figure-repos-and-commits
       - vc-changes-and-working-tree
@@ -20,10 +24,8 @@ decks:
       - vc-checkout-vs-switch
 ---
 
-{% include slider.html deck=page.decks.version_control %}
-
-
-
+{% include slider.html deck=page.decks.vc_intro %}
+{% include slider.html deck=page.decks.vc_concepts %}
 
 ## Git Conventions
 
@@ -125,17 +127,3 @@ git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=
 git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
 git config --global alias.stat 'status --short --branch --untracked-files=all'
 ```
-
-## Footnotes
-
-[^1]: Possibly all files, or possibly no files.
-[^2]: Files within any sub-directory of the git root directory, or any sub-directory of those, etc. can also be tracked by git.
-[^3]: Rather than for each file separately.
-[^4]: A git root directory is always the root directory of a clone, except before the git root directory has an initial commit. A git root directory without an initial commit *has no history* and therefore doesn't contain a repository, doesn't contain a clone, and isn't clonable.
-[^5]: Some people and organisations define 'git repository' as the same as the above definition of 'clone'. However, a distinction has been made in this walk-through partly to reflect how the term is often used in practice, and partly so that we can more easily discuss the distributed nature of git.
-[^6]: Non-bare clones. Bare clones only contain the history, with no working tree. Bare repositories are intended to be used for integrating a team's changes, like they are on version control hubs, rather than as a clone for making changes to the tracked files in the repository.
-[^7]: The name of the default branch was configured in the previous section, but it is called `main` throughout this walk-through.
-[^8]: Git supports having multiple working trees for a single clone, but this feature is rarely used because it is rarely useful - you can't physically work on multiple things at once (and shouldn't try to because multi-tasking makes you less productive), and keeping track of which version you're working on can be difficult and lead to confusion, so switching branches is usually the *more* efficient way of working.
-[^9]: See [Checkout vs. Switch](#checkout-vs-switch) for caveats.
-[^10]: You also have the option to perform a merge on checkout (`git checkout -m <other-branch>`), or force the checkout and discard your changes (`git checkout -f <other-branch>`), but these are rarely used - if you have merge conflicts, it is usually better to commit and perform a manual rebase, and discarding your changes is rarely what you want to do in the case of merge conflicts.
-[^11]: Or you can do a 'soft' reset, which makes them staged.

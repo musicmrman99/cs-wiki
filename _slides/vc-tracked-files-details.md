@@ -2,7 +2,7 @@
 ref: vc-tracked-files-details
 ---
 
-## More on Tracked Files
+### More on Tracked Files
 
 {% include plain-aside.html content="
 **Key Concepts**:

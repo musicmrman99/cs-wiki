@@ -2,7 +2,7 @@
 ref: vc-repos-and-commits
 ---
 
-## Repositories, Commits, and the Initial Commit
+### Repositories, Commits, and the Initial Commit
 
 {% include plain-aside.html content="
 **Key Concepts**:

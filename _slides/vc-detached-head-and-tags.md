@@ -2,7 +2,7 @@
 ref: vc-detached-head-and-tags
 ---
 
-## Detached `HEAD` and Tags
+### Detached `HEAD` and Tags
 
 {% include plain-aside.html content="
 **Key Concepts**:

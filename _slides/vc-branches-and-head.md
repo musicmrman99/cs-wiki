@@ -2,7 +2,7 @@
 ref: vc-branches-and-head
 ---
 
-## Branches and `HEAD`
+### Branches and `HEAD`
 
 {% include plain-aside.html content="
 **Key Concepts**:

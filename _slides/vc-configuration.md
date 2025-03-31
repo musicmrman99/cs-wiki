@@ -2,7 +2,7 @@
 ref: vc-configuration
 ---
 
-## Configuring Git
+### Configuring Git
 
 After installing git, you should configure some basic settings. Some of the most commonly used settings are explained below, with suggestions about what values to use. See [Common Git Configurations](#appendix-1-common-git-configurations) for some alternative configurations.
 

@@ -2,7 +2,7 @@
 ref: vc-checkout-vs-switch
 ---
 
-## Checkout vs. Switch
+### Checkout vs. Switch
 
 {% include plain-aside.html content="
 **Key Concepts**:

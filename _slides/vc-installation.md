@@ -2,7 +2,7 @@
 ref: vc-installation
 ---
 
-## Installing Git and How to Run It
+### Installing Git and How to Run It
 
 If you're on Windows, Git for Windows sets up a basic Unix-like environment for you with git installed. If you're on Linux, just install git through your system package manager. If you're using WSL, then install it like you're on Linux.
 

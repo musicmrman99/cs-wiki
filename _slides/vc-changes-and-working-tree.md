@@ -2,7 +2,7 @@
 ref: vc-changes-and-working-tree
 ---
 
-## Changes and The Working Tree
+### Changes and The Working Tree
 
 {% include plain-aside.html content="
 **Key Concepts**:

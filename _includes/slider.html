@@ -1,4 +1,8 @@
 <div class="slider">
+    {% if include.deck.title != null %}
+    <h2>{{ include.deck.title }}</h2>
+    {% endif %}
+
     <p class="slider-nav">
         Slides:
         {% for slide_ref in include.deck.slides -%}

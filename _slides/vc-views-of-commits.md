@@ -2,7 +2,7 @@
 ref: vc-views-of-commits
 ---
 
-## Views of Commits
+### Views of Commits
 
 {% include plain-aside.html content="
 **Key Concepts**:
