@@ -3,6 +3,9 @@
 
 @import "{{ site.theme }}";
 
+/* General
+-------------------------------------------------- */
+
 img, .markdown-body img {
     background-color: transparent;
 }
@@ -28,6 +31,57 @@ aside, .markdown-body aside {
     margin-left: 10px;
 }
 
+/* Slider
+-------------------------------------------------- */
+
+/* Based on: https://css-tricks.com/css-only-carousel/ */
+
+.slider {
+    overflow: hidden;
+}
+
+.slider-nav {
+    display: flex;
+    gap: 10px;
+}
+.slider-nav > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.slide {
+    /* size and alignment in parent */
+    scroll-snap-align: start; /* alignment in parent scroll container */
+    width: 100%;              /* slide area is width of slider */
+    flex-shrink: 0;           /* keep full width in flex container */
+    margin-right: 50px;       /* gap between slides */
+
+    /* alignment of children */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* testing / style */
+    background: #eee;
+    border-radius: 10px;
+    font-size: 100px;
+}
+
+/* Callouts
+-------------------------------------------------- */
+
 .callout {
     display: flex;
     justify-content: left;
@@ -43,11 +97,20 @@ aside, .markdown-body aside {
     padding-right: 10px;
 }
 
+/* Colour Scheme
+-------------------------------------------------- */
+
 .plain {
     background-color: #f7f7f7;
     border-color: #f2f2f2;
     color: #8f8f8f;
 }
+.plain:focus {
+    background-color: #f2f2f2;
+    border-color: #ededed;
+    color: #8f8f8f;
+}
+
 .todo {
     background-color: #dcf7da;
     border-color: #caf2bd;

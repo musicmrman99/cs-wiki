@@ -1,6 +1,17 @@
 ---
 layout: main
 title: Version Control
+
+decks:
+   version_control:
+      name: Version Control
+      slides:
+      - vc-installation
+      - vc-configuration
+---
+
+{% include slider.html deck=page.decks.version_control %}
+
 ---
 
 ## Installing Git and How to Run It
