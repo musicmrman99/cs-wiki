@@ -17,9 +17,13 @@
             <div class="slide-nav">
                 {% if forloop.index > 1 %}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
+                {% else %}
+                <div></div>
                 {% endif %}
                 {% if forloop.index < forloop.length %}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
+                {% else %}
+                <div></div>
                 {% endif %}
             </div>
 
@@ -28,9 +32,13 @@
             <div class="slide-nav">
                 {% if forloop.index > 1 %}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | minus: 1 }}" class="emphasised prev button">&lt;</a>
+                {% else %}
+                <div></div>
                 {% endif %}
                 {% if forloop.index < forloop.length %}
                 <a href="#slide-{{ include.deck.ref }}-{{ forloop.index | plus: 1 }}" class="emphasised next button">&gt;</a>
+                {% else %}
+                <div></div>
                 {% endif %}
             </div>
         </div>

@@ -47,10 +47,15 @@ aside, .markdown-body aside {
     font-size: 1.5rem;
 }
 
-.slider {
-    overflow: hidden;
-}
+/* .slider {} */
 .slider-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1; /* above other elements */
+
+    padding: 10px calc(20px + 3rem); /* between the prev/next buttons */
+    background-color: white;
+
     display: flex;
     align-items: center;
     gap: 10px;
@@ -70,18 +75,12 @@ aside, .markdown-body aside {
 }
 
 .slide-nav {
-    position: relative;
-    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
 }
 .slide-nav > .button {
-    position: absolute;
-    top: 0;
-}
-.slide-nav > .prev {
-    left: 0;
-}
-.slide-nav > .next {
-    right: 0;
+    z-index: 2; /* above sticky elements */
 }
 
 /* Callouts
