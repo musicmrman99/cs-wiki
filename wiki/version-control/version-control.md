@@ -99,7 +99,7 @@ git config --global difftool.default-difftool.cmd 'code --wait --diff $LOCAL $RE
 git config --global merge.tool 'code'
 git config --global mergetool.code.cmd 'code --wait --merge $REMOTE $LOCAL $BASE $MERGED'
 ```
-Source: https://code.visualstudio.com/docs/sourcecontrol/overview#_vs-code-as-git-editor
+Source: [https://code.visualstudio.com/docs/sourcecontrol/overview#_vs-code-as-git-editor](https://code.visualstudio.com/docs/sourcecontrol/overview#_vs-code-as-git-editor)
 
 Do a web search for "git core.editor <your preferred editor>" for information on how to configure other editors.
 
