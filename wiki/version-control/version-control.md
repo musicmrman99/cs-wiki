@@ -8,209 +8,19 @@ decks:
       slides:
       - vc-installation
       - vc-configuration
+      - vc-repos-and-commits
+      - vc-changes-and-working-tree
+      - vc-tracked-files-details
+      - vc-branches-and-head
+      - vc-detached-head-and-tags
+      - vc-views-of-commits
+      - vc-checkout-vs-switch
 ---
 
 {% include slider.html deck=page.decks.version_control %}
 
----
 
-## Installing Git and How to Run It
 
-If you're on Windows, Git for Windows sets up a basic Unix-like environment for you with git installed. If you're on Linux, just install git through your system package manager. If you're using WSL, then install it like you're on Linux.
-
-Many IDEs will use the 'system git', even if you've installed git in a different way. For Windows machines, the 'system git' is the one installed with Git for Windows. If using VS Code as your IDE, alternatively you can attach it to a running instance of WSL, so if you install git in WSL then you won't have to install Git for Windows outside of WSL.
-
-There are multiple ways of interacting with git, but I suggest you use git on the **command line** (aka. CLI) with the `git` command. This is because IDEs vary in their ability to use all of git's features (most IDEs don't support everything you will want) and some IDEs use undesirable strategies for performing some high-level actions with git. The command line allows you to do everything git is capable of, and to control exactly what git actions to perform to avoid issues.
-
-## Configuring Git
-
-After installing git, you should configure some basic settings. Some of the most commonly used settings are explained below, with suggestions about what values to use. See [Common Git Configurations](#appendix-1-common-git-configurations) for some alternative configurations.
-
-1. **Your identity**: Git stores some metadata with each version it creates, including the name and email address of who created the version. You must set the name and email address you want to use for this. If you want to have your code credited to you (which you usually will for professional or open-source work), then use your real name and a professional email address. To set these, run:
-   ```sh
-   git config --global user.name 'Your Name'
-   git config --global user.email 'your@email.address'
-   ```
-
-2. **The default branch**: When creating a git repository, git will create an initial 'branch' to create new versions on (don't worry about what these are yet). The default name for this branch is `master` but many people prefer to use `main` or `trunk`. To change the default name to `main`, run:
-   ```sh
-   git config --global init.defaultBranch main
-   ```
-
-3. **External tools**: Git uses external apps for various tasks. The defaults are usually to use `less` as a text viewer, and `vim` as a text editor. `less` is a command-line paginated text viewer. `vim` is a command-line modal text editor. These are the defaults because they are installed in almost all Unix-like systems, but they may be difficult to use for beginners. Whether you want to learn how to use them or swap to a different viewer and/or editor is up to you. To change the editor to `nano`, run:
-   ```sh
-   git config --global core.editor 'nano'
-   ```
-
-4. **Command aliases**: Some common git commands give quite a lot of output by default, and omit some useful details. Various options can be given to those commands to tell them what to output and how to format that output, but these longer commands are difficult to remember. To make longer commands like these easier to use, git supports defining command aliases. Aliases can be run just like any other command (eg. `git repo`). I have found the following aliases to be a useful initial set, though you may want to add your own as you use git more:
-   ```sh
-   git config --global alias.repo 'log --abbrev-commit --format=oneline --graph --all'
-   git config --global alias.repo-l 'log --abbrev-commit --format=oneline --graph'
-   git config --global alias.repo-b 'log --abbrev-commit --oneline --graph main..HEAD'
-   git config --global alias.repo-d "log --abbrev-commit --oneline --graph --all --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d'"
-   git config --global alias.repo-ld "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d'"
-   git config --global alias.repo-bd "log --abbrev-commit --oneline --graph --date=short --format='%C(yellow)%<|(15)%h %C(cyan)%<|(30)%ad %C(yellow)%<|(50)%an %C(reset)%s%C(auto)%d' main..HEAD"
-   git config --global alias.stat 'status --short --branch --untracked-files=all'
-   ```
-
-   You will learn why these aliases are useful as you progress through this walk-through.
-
-## Git Core Concepts and Definitions
-
-### Repositories, Commits, and the Initial Commit
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Git root directory
-- Tracked files
-- Commits
-- Initial commit
-- Changes
-- History
-- Clones
-- Repositories
-" %}
-
-Git allows initially saving a copy of a subset[^1] of the files (called the **tracked files**) within[^2] a directory (called the **git root directory**) as a version (called a **commit**) whenever the user requests it. After creating this **initial commit**, git allows saving the **changes** made to the set of tracked files since the last commit (which may include the creation and deletion of files) as a new commit whenever the user requests it (ie. when the user *commits* to keeping the changes). Creating commits builds up a **history** of the set of tracked files as a whole[^3]. Git stores this history in a sub-directory of the git root directory called `.git`.
-
-Git allows copying the history from any git root directory to another location, such as another computer or a server. Each copy of the history, including the original copy[^4], is called a **clone**. The history of each clone can be modified independently after cloning. The combined history of all clones that share an initial commit is called a **git repository**[^5].
-
-It's important to note that this definition of 'git repository' makes it an abstract concept - there is no single location of 'a repository'; a repository is **distributed** across all of its clones.
-
-{% include info.html content="
-**Key Point**: Git doesn't store complete versions of your files (except in the initial commit); it stores the **changes** between versions.
-" %}
-
-{% include todo.html content="
-The above is technically incorrect, but is close to the implementation. Regardless, it may be worth re-wording to closer match the section on [Views of Commits](#views-of-commits).
-" %}
-
-{% include figure.html
-   url="/assets/images/version-control/git-concepts-repo-commit-and-initial-commit.drawio.png"
-   alt="Git concepts: repositories, commits, and the initial comit - overview"
-   title="Visualisation of concepts so far"
-   caption="Git concepts: repositories, commits, and the initial comit - overview" %}
-
-### Changes and The Working Tree
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- The working tree
-- The index
-- The checked-out commit
-- Names for specific sets of changes:
-  - Unstaged changes
-  - Staged changes
-  - Uncommitted changes
-" %}
-
-Most clones[^6] of a repository have a location (called the **working tree**) where the tracked files from one of the commits in the repository are placed (called being **checked out**, like a library book) so that they can then be edited (ie. *worked* on, hence it's called the *working* tree). By default, this is the same location as the git root directory of the clone.
-
-After making any desired changes, the changes must be added to the **index** before they can be committed. The index stores what the next commit would be if the user committed right now - it acts like a 'staging area' before the changes it contains are committed. Once the index contains a single stable and coherent set of changes, the user can commit those changes.
-
-Any changes to tracked files made to the working tree that haven't been added to the index are called **unstaged changes**. Any changes added to the index are called **staged changes**.
-The combination of all staged *and* unstaged changes are called **uncommitted changes**.
-
-### More on Tracked Files
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Tracked files (more details)
-" %}
-
-With the above definitions in hand, we can refine our definition of *tracked file*.
-
-A file is tracked in a clone if it exists in the currently checked-out commit (regardless of whether that commit directly contains any changes to it), or there are any changes to it in the index (including creation or deletion).
-
-Therefore:
-
-- Adding "the creation of a file" (as a change) to the index (even before comitting) makes that file tracked because there is a change to it (creation) in the index.
-
-- Adding "the removal of a file" (as a change) to the index *and committing it* will make that file no longer tracked because it will no longer exist in the checked-out commit (which is the new commit) and there are no changes to it in the index.
-
-Directories are not tracked.
-
-{% include figure.html
-   url="/assets/images/version-control/git-concepts-the-working-tree-tracked-files-and-changes.drawio.png"
-   alt="Git concepts: the working tree, tracked files, and changes - overview"
-   title="Visualisation of concepts so far"
-   caption="Git concepts: the working tree, tracked files, and changes - overview" %}
-
-### Branches and `HEAD`
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Refs (in general)
-- Branches
-- HEAD
-" %}
-
-When a git repository (ie. an initial commit) is created, git automatically creates a note (called a **reference**, or **ref**) that refers to the initial commit. After this, whenever the user commits changes, this reference is updated to refer to the new commit. This kind of reference - one that updates to refer to the new commit whenever you commit - is called a **branch**. The commit that a branch refers to is called the **tip** of the branch. The branch that git automatically creates when the initial commit is created is called the **default branch**[^7].
-
-Once the default branch is created, git allows making more branches. Branches allow working on and committing different sets of changes (called **divergent** histories) to the same files separately, as if making those different changes to separate copies of the files. However, unlike editing multiple copies, git keeps track of divergent changes in a way that provides much greater flexibility for combining (called **merging**) different sets of changes in various ways.
-
-Only one branch can be checked out into the working tree[^8] at any one time, but the user can switch between branches[^9]. Git has a special reference called **`HEAD`** that normally refers to the *branch* that is currently checked out (rather than the commit that the branch refers to). This means that when you commit and the branch is updated to refer to the new commit, `HEAD` will implicitly refer to the new commit as well. Git automatically sets `HEAD` to the default branch when the initial commit is created.
-
-### Detached `HEAD` and Tags
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Detatched HEAD
-- Tags
-" %}
-
-It is also possible to checkout any commit, rather than a branch. This will put you into **detached `HEAD`** mode, which operates the same as **attached `HEAD`** mode (ie. the normal mode), except since there is no branch checked out, any commits you make will only be refered to by `HEAD` and not by any branch. As such, if you change `HEAD` by checking out another commit or a branch, then all of the additional commits you have created since detaching `HEAD` will become **orphaned**, and so will become inaccessible using the 'normal' git commands and will be marked for deletion. If you want to keep the work you have done after checking out a commit directly (and so detaching `HEAD`), then create a branch that refers to the commit you currently have checked out before checking out another commit or a branch.
-
-Finally, git allows you to create static references called **tags** that do not change when you commit. If you checkout a tag, git will detach your `HEAD` and update it to refer to the commit that the tag refers to, rather than to the tag itself. Tags tend to be used to mark specific, historical versions of the files, such as previous 'releases' of a piece of software.
-
-{% include figure.html
-   url="/assets/images/version-control/git-concepts-references-and-checkout.drawio.png"
-   alt="Git concepts: references and detached HEAD - overview"
-   title="Visualisation of concepts so far"
-   caption="Git concepts: references and detached HEAD - overview" %}
-
-### Views of Commits
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Snapshots vs. Changes
-" %}
-
-There are two ways of thinking about a commit - as a **change**, and as a **snapshot** (ie. the set of all files that you would get if you checked out the commit). Git views commits in these different ways in different contexts (such as in different `git` commands).
-
-When you want to *use* the files that a commit represents (such as to run them, deploy them, share them, etc), you will view that commit like a snapshot. Tags are designed to be viewed like this - they are created to be checked out and used without making further changes.
-
-When you want to *change* the files that a commit represents, you will view that commit like a snapshot (putting it in the role of a **base commit**), and view the set of commits based on it like changes. Branches are designed to be viewed like this - with the last commit that was also on the default branch being seen as the base commit, and all commits based on it being the changes that are 'on' that branch.
-
-{% include todo.html content="
-In relation to the above, it may be worth explaining precisely what a commit being 'on' a branch means, including some potentially conflicting definitions.
-" %}
-
-### Checkout vs. Switch
-
-{% include plain-aside.html content="
-**Key Concepts**:
-
-- Rebase on checkout
-- Reset
-- The relationship between `HEAD` and the working tree
-" %}
-
-So far we've seen making changes on top of a checked-out commit, and checking out a different branch before making any changes, but what about checking out a different branch after making changes? If you checkout a branch while you have uncommitted changes, then git will try to apply those changes to the content of the files from the commit at the tip of the newly checked-out branch (or from the newly checked-out commit, if detaching `HEAD`). This is called **rebasing** your changes - where a set of changes originally made to one base commit is applied to another base commit. If git is unable to do this rebase automatically, it will abort the checkout[^10]. Rebase-on-checkout is primarily useful when you have made some changes, but you had a different branch checked out at the time you made them than the branch you wanted to commit them to.
-
-It is also possible to switch to a different branch (or commit, if detaching `HEAD`) without changing the working tree *at all*. This is called **resetting**, and effectively marks all of the changes between the previous working tree and the new `HEAD` commit (viewed as a snapshot) as unstaged[^11]. Resetting cannot cause merge conflicts. Resetting to `HEAD` simply unstages all of your staged changes. Resetting is primarily useful when you accidentally added (or committed after adding) fewer or more changes than you thought you had made, or when you want to split a commit (viewed as a change) into multiple commits.
-
-{% include info.html content="
-**Key Point**: Changing `HEAD` (switch) is separate from changing the working tree (checkout).
-
-Several commands both switch and checkout in one go, but these operations should be thought about separately. Rebase-on-checkout moves your changes onto a new `HEAD` (keeping your *changes* the same, but changing your snapshot), while reset just moves `HEAD` (keeping your *snapshot* the same, but combining your changes).
-" %}
 
 ## Git Conventions
 
@@ -258,7 +68,14 @@ git commit --allow-empty
 
 {% include todo.html content="**TODO**" %}
 
-# Appendices
+
+
+
+
+
+
+
+
 
 ## Appendix 1: Common Git Configurations
 
