@@ -3,8 +3,143 @@
 
 @import "{{ site.theme }}";
 
+/* Theme
+-------------------------------------------------- */
+
+body[data-theme="light"] {
+    --background-color: lch(100% 0 0);
+    --color: lch(10% 3 205);
+
+     /* H:240 = blue */
+    --plain-background-color: lch(97% 0 0);
+    --plain-border-color: lch(93% 0 0);
+    --plain-color: lch(60% 0 0);
+    --plain-focus-background-color: lch(93% 0 0);
+    --plain-focus-border-color: lch(89% 0 0);
+    --plain-focus-color: lch(55% 0 0);
+
+    --emphasised-background-color: #ebebeb;
+    --emphasised-border-color: #e6e6e6;
+    --emphasised-color: #808080;
+    --emphasised-focus-background-color: #e6e6e6;
+    --emphasised-focus-border-color: #e0e0e0;
+    --emphasised-focus-color: #787878;
+
+    --todo-background-color: #dcf7da;
+    --todo-border-color: #caf2bd;
+    --todo-color: #378f31;
+
+    --info-background-color: #d9edf7;
+    --info-border-color: #bce8f1;
+    --info-color: #31708f;
+
+    --tip-background-color: #f7f7d2;
+    --tip-border-color: #f2e8b6;
+    --tip-color: #8f8f2b;
+
+    --warning-background-color: #f7d9d9;
+    --warning-border-color: #f2bdc6;
+    --warning-color: #8f3131;
+}
+
+body[data-theme="dark"] {
+    --background-color: lch(7% 4 265);
+    --color: #e4ecf7;
+
+    --plain-background-color: #212121;
+    --plain-border-color: #262626;
+    --plain-color: #8a8a8a;
+    --plain-focus-background-color: #262626;
+    --plain-focus-border-color: #2b2b2b;
+    --plain-focus-color: #949494;
+
+    --emphasised-background-color: #2e2e2e;
+    --emphasised-border-color: #333333;
+    --emphasised-color: #999999;
+    --emphasised-focus-background-color: #333333;
+    --emphasised-focus-border-color: #383838;
+    --emphasised-focus-color: #a1a1a1;
+
+    /* ===== TODO */
+    --todo-background-color: #dcf7da;
+    --todo-border-color: #caf2bd;
+    --todo-color: #378f31;
+
+    /* ===== S: flip around 50, V: flip around 65 */
+    --info-background-color: #0a3b54;
+    --info-border-color: #144e59;
+    --info-color: #7da7bd;
+
+    --tip-background-color: #f7f7d2;
+    --tip-border-color: #f2e8b6;
+    --tip-color: #8f8f2b;
+
+    --warning-background-color: #f7d9d9;
+    --warning-border-color: #f2bdc6;
+    --warning-color: #8f3131;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--color)
+}
+
+.plain {
+    background-color: var(--plain-background-color);
+    border-color: var(--plain-border-color);
+    color: var(--plain-color);
+}
+.plain:focus {
+    background-color: var(--plain-focus-background-color);
+    border-color: var(--plain-focus-border-color);
+    color: var(--plain-focus-color);
+}
+
+.emphasised {
+    background-color: var(--emphasised-background-color);
+    border-color: var(--emphasised-border-color);
+    color: var(--emphasised-color);
+}
+.emphasised:focus {
+    background-color: var(--emphasised-focus-background-color);
+    border-color: var(--emphasised-focus-border-color);
+    color: var(--emphasised-focus-color);
+}
+
+.todo {
+    background-color: var(--todo-background-color);
+    border-color: var(--todo-border-color);
+    color: var(--todo-color);
+}
+.info {
+    background-color: var(--info-background-color);
+    border-color: var(--info-border-color);
+    color: var(--info-color);
+}
+.tip {
+    background-color: var(--tip-background-color);
+    border-color: var(--tip-border-color);
+    color: var(--tip-color);
+}
+.warning {
+    background-color: var(--warning-background-color);
+    border-color: var(--warning-border-color);
+    color: var(--warning-color);
+}
+
 /* General
 -------------------------------------------------- */
+
+button, .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
 
 img, .markdown-body img {
     background-color: transparent;
@@ -31,20 +166,40 @@ aside, .markdown-body aside {
     margin-left: 10px;
 }
 
+/* Theme Mode Selector
+-------------------------------------------------- */
+
+#theme-selector {
+    display: flex;
+    position: relative;
+}
+#theme-selector > i {
+    overflow-x: hidden;
+    width: 0;
+    transition: width 0.2s ease-in-out;
+    font-size: 24px;
+}
+#theme-selector > i.indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
+#theme-selector > i.theme-active {
+    width: 24px;
+}
+#theme-selector > i.indicator.theme-active {
+    width: 12px;
+}
+
 /* Slider
 -------------------------------------------------- */
 
 /* Based on: https://css-tricks.com/css-only-carousel/ */
 
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.slider .button {
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1.5rem;
 }
 
 /* .slider {} */
@@ -52,10 +207,7 @@ aside, .markdown-body aside {
     position: sticky;
     top: 0;
     z-index: 1; /* above other elements */
-
     padding: 10px calc(20px + 3rem); /* between the prev/next buttons */
-    background-color: white;
-
     display: flex;
     align-items: center;
     gap: 10px;
@@ -99,50 +251,4 @@ aside, .markdown-body aside {
 
 .callout img.callout-icon {
     padding-right: 10px;
-}
-
-/* Colour Scheme
--------------------------------------------------- */
-
-.plain {
-    background-color: #f7f7f7;
-    border-color: #f2f2f2;
-    color: #8f8f8f;
-}
-.plain:focus {
-    background-color: #f2f2f2;
-    border-color: #ededed;
-    color: #858585;
-}
-
-.emphasised {
-    background-color: #ebebeb;
-    border-color: #e6e6e6;
-    color: #808080;
-}
-.emphasised:focus {
-    background-color: #e6e6e6;
-    border-color: #e0e0e0;
-    color: #787878;
-}
-
-.todo {
-    background-color: #dcf7da;
-    border-color: #caf2bd;
-    color: #378f31;
-}
-.info {
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    color: #31708f;
-}
-.tip {
-    background-color: #f7f7d2;
-    border-color: #f2e8b6;
-    color: #8f8f2b;
-}
-.warning {
-    background-color: #f7d9d9;
-    border-color: #f2bdc6;
-    color: #8f3131;
 }
