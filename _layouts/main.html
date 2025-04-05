@@ -6,7 +6,13 @@ layout: default
     <div style="display: flex; justify-content: left">
         <a href="{{site.url}}/wiki/version-control/version-control">Version Control</a>
     </div>
-    <div></div>
+    <div>
+        <button type="button" id="theme-selector" class="emphasised">
+            <i class="material-symbols-rounded" id="light-theme-symbol">light_mode</i>
+            <i class="material-symbols-rounded" id="dark-theme-symbol">dark_mode</i>
+            <i class="material-symbols-rounded indicator" id="preferred-theme-symbol">settings</i>
+        </button>
+    </div>
 </nav>
 
 <header>
@@ -34,3 +40,61 @@ layout: default
         </p>
     </div>
 </footer>
+
+<script>
+    // Elements
+    const body = document.getElementsByTagName('body')[0];
+    const themeSelector = document.getElementById('theme-selector');
+    const lightThemeSymbol = document.getElementById('light-theme-symbol');
+    const darkThemeSymbol = document.getElementById('dark-theme-symbol');
+    const preferredThemeSymbol = document.getElementById('preferred-theme-symbol');
+
+    // Preferred theme
+    let preferredTheme = 'light';
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        preferredTheme = 'dark';
+    }
+
+    // Available themes + current theme
+    const themes = ['preferred', 'light', 'dark'];
+    let theme = themes[0];
+    function applyTheme() {
+        const themeValue = theme == 'preferred' ? preferredTheme : theme;
+
+        body.setAttribute('data-theme', themeValue);
+
+        lightThemeSymbol.classList.remove('theme-active');
+        darkThemeSymbol.classList.remove('theme-active');
+        preferredThemeSymbol.classList.remove('theme-active');
+        if (themeValue == 'light') {
+            lightThemeSymbol.classList.add('theme-active');
+        }
+        if (themeValue == 'dark') {
+            darkThemeSymbol.classList.add('theme-active');
+        }
+        if (theme == 'preferred') {
+            preferredThemeSymbol.classList.add('theme-active');
+        }
+    }
+    function setTheme(newTheme) {
+        theme = newTheme;
+        applyTheme();
+    }
+    function setNextTheme() {
+        const curThemeIndex = themes.indexOf(theme);
+        const nextThemeIndex = (curThemeIndex + 1) % themes.length;
+        setTheme(themes[nextThemeIndex]);
+    }
+
+    // Set theme on preference change
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        preferredTheme = event.matches ? 'dark' : 'light';
+        applyTheme(); // In case the current theme is 'preferred'
+    });
+
+    // Set theme on manual toggle
+    themeSelector.addEventListener('click', setNextTheme);
+
+    // Apply the theme now
+    applyTheme();
+</script>

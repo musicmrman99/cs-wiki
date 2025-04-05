@@ -3,8 +3,349 @@
 
 @import "{{ site.theme }}";
 
+/* Theme
+-------------------------------------------------- */
+
+body {
+    --base-background-lightness: 100;
+    --base-border-lightness: 95;
+    --base-foreground-lightness: 10;
+
+    --background-lightness: 97;
+    --border-lightness: 90;
+    --foreground-lightness: 45;
+
+    --contrast-background-lightness: 92;
+    --contrast-border-lightness: 85;
+    --contrast-foreground-lightness: 40;
+
+    --strong-contrast-background-lightness: 87;
+    --strong-contrast-border-lightness: 80;
+    --strong-contrast-foreground-lightness: 35;
+
+    --neutral-chroma: 3;
+    --background-chroma: 20;
+    --border-chroma: 25;
+    --foreground-chroma: 50;
+
+    --neutral-hue: 265;
+    --info-hue: 270;
+    --todo-hue: 140;
+    --tip-hue: 100;
+    --warning-hue: 20;
+}
+
+body[data-theme="light"] {
+    --background-color: lch(var(--base-background-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --border-color: lch(var(--base-border-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --color: lch(var(--base-foreground-lightness) var(--neutral-chroma) var(--neutral-hue));
+
+    --plain-background-color: lch(var(--background-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --plain-border-color: lch(var(--border-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --plain-color: lch(var(--foreground-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --plain-focus-background-color: lch(var(--contrast-background-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --plain-focus-border-color: lch(var(--contrast-border-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --plain-focus-color: lch(var(--contrast-foreground-lightness) var(--neutral-chroma) var(--neutral-hue));
+
+    --emphasised-background-color: lch(var(--contrast-background-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --emphasised-border-color: lch(var(--contrast-border-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --emphasised-color: lch(var(--contrast-foreground-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --emphasised-focus-background-color: lch(var(--strong-contrast-background-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --emphasised-focus-border-color: lch(var(--strong-contrast-border-lightness) var(--neutral-chroma) var(--neutral-hue));
+    --emphasised-focus-color: lch(var(--strong-contrast-foreground-lightness) var(--neutral-chroma) var(--neutral-hue));
+
+    --info-background-color: lch(var(--background-lightness) var(--background-chroma) var(--info-hue));
+    --info-border-color: lch(var(--border-lightness) var(--border-chroma) var(--info-hue));
+    --info-color: lch(var(--foreground-lightness) var(--foreground-chroma) var(--info-hue));
+
+    --todo-background-color: lch(var(--background-lightness) var(--background-chroma) var(--todo-hue));
+    --todo-border-color: lch(var(--border-lightness) var(--border-chroma) var(--todo-hue));
+    --todo-color: lch(var(--foreground-lightness) var(--foreground-chroma) var(--todo-hue));
+
+    --tip-background-color: lch(var(--background-lightness) var(--background-chroma) var(--tip-hue));
+    --tip-border-color: lch(var(--border-lightness) var(--border-chroma) var(--tip-hue));
+    --tip-color: lch(var(--foreground-lightness) var(--foreground-chroma) var(--tip-hue));
+
+    --warning-background-color: lch(var(--background-lightness) var(--background-chroma) var(--warning-hue));
+    --warning-border-color: lch(var(--border-lightness) var(--border-chroma) var(--warning-hue));
+    --warning-color: lch(var(--foreground-lightness) var(--foreground-chroma) var(--warning-hue));
+}
+
+body[data-theme="dark"] {
+    --neutral-lightness-invert-center: 55;
+    --color-lightness-invert-center: 65;
+    --color-chroma-invert-center: 25;
+
+    --background-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--base-background-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --border-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--base-border-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--base-foreground-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+
+    --plain-background-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--background-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --plain-border-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--border-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --plain-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--foreground-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --plain-focus-background-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-background-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --plain-focus-border-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-border-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --plain-focus-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-foreground-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+
+    --emphasised-background-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-background-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --emphasised-border-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-border-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --emphasised-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--contrast-foreground-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --emphasised-focus-background-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--strong-contrast-background-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --emphasised-focus-border-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--strong-contrast-border-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+    --emphasised-focus-color: lch(
+        calc(var(--neutral-lightness-invert-center) + (var(--neutral-lightness-invert-center) - var(--strong-contrast-foreground-lightness)))
+        var(--neutral-chroma)
+        var(--neutral-hue)
+    );
+
+    --todo-background-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--background-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--background-chroma)))
+        var(--todo-hue)
+    );
+    --todo-border-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--border-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--border-chroma)))
+        var(--todo-hue)
+    );
+    --todo-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--foreground-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--foreground-chroma)))
+        var(--todo-hue)
+    );
+
+    --info-background-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--background-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--background-chroma)))
+        var(--info-hue)
+    );
+    --info-border-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--border-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--border-chroma)))
+        var(--info-hue)
+    );
+    --info-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--foreground-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--foreground-chroma)))
+        var(--info-hue)
+    );
+
+    --tip-background-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--background-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--background-chroma)))
+        var(--tip-hue)
+    );
+    --tip-border-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--border-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--border-chroma)))
+        var(--tip-hue)
+    );
+    --tip-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--foreground-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--foreground-chroma)))
+        var(--tip-hue)
+    );
+
+    --warning-background-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--background-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--background-chroma)))
+        var(--warning-hue)
+    );
+    --warning-border-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--border-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--border-chroma)))
+        var(--warning-hue)
+    );
+    --warning-color: lch(
+        calc(var(--color-lightness-invert-center) + (var(--color-lightness-invert-center) - var(--foreground-lightness)))
+        calc(var(--color-chroma-invert-center) + (var(--color-chroma-invert-center) - var(--foreground-chroma)))
+        var(--warning-hue)
+    );
+
+    /* Rogue syntax highlighter - Monokai theme from https://github.com/jwarby/jekyll-pygments-themes/blob/master/monokai.css */
+    .markdown-body .highlight, .markdown-body .highlight pre { background-color: #272822; }
+    .markdown-body .highlight .hll { background-color: #272822; }
+    .markdown-body .highlight .c { color: #75715e } /* Comment */
+    .markdown-body .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
+    .markdown-body .highlight .k { color: #66d9ef } /* Keyword */
+    .markdown-body .highlight .l { color: #ae81ff } /* Literal */
+    .markdown-body .highlight .n { color: #f8f8f2 } /* Name */
+    .markdown-body .highlight .o { color: #f92672 } /* Operator */
+    .markdown-body .highlight .p { color: #f8f8f2 } /* Punctuation */
+    .markdown-body .highlight .cm { color: #75715e } /* Comment.Multiline */
+    .markdown-body .highlight .cp { color: #75715e } /* Comment.Preproc */
+    .markdown-body .highlight .c1 { color: #75715e } /* Comment.Single */
+    .markdown-body .highlight .cs { color: #75715e } /* Comment.Special */
+    .markdown-body .highlight .ge { font-style: italic } /* Generic.Emph */
+    .markdown-body .highlight .gs { font-weight: bold } /* Generic.Strong */
+    .markdown-body .highlight .kc { color: #66d9ef } /* Keyword.Constant */
+    .markdown-body .highlight .kd { color: #66d9ef } /* Keyword.Declaration */
+    .markdown-body .highlight .kn { color: #f92672 } /* Keyword.Namespace */
+    .markdown-body .highlight .kp { color: #66d9ef } /* Keyword.Pseudo */
+    .markdown-body .highlight .kr { color: #66d9ef } /* Keyword.Reserved */
+    .markdown-body .highlight .kt { color: #66d9ef } /* Keyword.Type */
+    .markdown-body .highlight .ld { color: #e6db74 } /* Literal.Date */
+    .markdown-body .highlight .m { color: #ae81ff } /* Literal.Number */
+    .markdown-body .highlight .s { color: #e6db74 } /* Literal.String */
+    .markdown-body .highlight .na { color: #a6e22e } /* Name.Attribute */
+    .markdown-body .highlight .nb { color: #f8f8f2 } /* Name.Builtin */
+    .markdown-body .highlight .nc { color: #a6e22e } /* Name.Class */
+    .markdown-body .highlight .no { color: #66d9ef } /* Name.Constant */
+    .markdown-body .highlight .nd { color: #a6e22e } /* Name.Decorator */
+    .markdown-body .highlight .ni { color: #f8f8f2 } /* Name.Entity */
+    .markdown-body .highlight .ne { color: #a6e22e } /* Name.Exception */
+    .markdown-body .highlight .nf { color: #a6e22e } /* Name.Function */
+    .markdown-body .highlight .nl { color: #f8f8f2 } /* Name.Label */
+    .markdown-body .highlight .nn { color: #f8f8f2 } /* Name.Namespace */
+    .markdown-body .highlight .nx { color: #a6e22e } /* Name.Other */
+    .markdown-body .highlight .py { color: #f8f8f2 } /* Name.Property */
+    .markdown-body .highlight .nt { color: #f92672 } /* Name.Tag */
+    .markdown-body .highlight .nv { color: #f8f8f2 } /* Name.Variable */
+    .markdown-body .highlight .ow { color: #f92672 } /* Operator.Word */
+    .markdown-body .highlight .w { color: #f8f8f2 } /* Text.Whitespace */
+    .markdown-body .highlight .mf { color: #ae81ff } /* Literal.Number.Float */
+    .markdown-body .highlight .mh { color: #ae81ff } /* Literal.Number.Hex */
+    .markdown-body .highlight .mi { color: #ae81ff } /* Literal.Number.Integer */
+    .markdown-body .highlight .mo { color: #ae81ff } /* Literal.Number.Oct */
+    .markdown-body .highlight .sb { color: #e6db74 } /* Literal.String.Backtick */
+    .markdown-body .highlight .sc { color: #e6db74 } /* Literal.String.Char */
+    .markdown-body .highlight .sd { color: #e6db74 } /* Literal.String.Doc */
+    .markdown-body .highlight .s2 { color: #e6db74 } /* Literal.String.Double */
+    .markdown-body .highlight .se { color: #ae81ff } /* Literal.String.Escape */
+    .markdown-body .highlight .sh { color: #e6db74 } /* Literal.String.Heredoc */
+    .markdown-body .highlight .si { color: #e6db74 } /* Literal.String.Interpol */
+    .markdown-body .highlight .sx { color: #e6db74 } /* Literal.String.Other */
+    .markdown-body .highlight .sr { color: #e6db74 } /* Literal.String.Regex */
+    .markdown-body .highlight .s1 { color: #e6db74 } /* Literal.String.Single */
+    .markdown-body .highlight .ss { color: #e6db74 } /* Literal.String.Symbol */
+    .markdown-body .highlight .bp { color: #f8f8f2 } /* Name.Builtin.Pseudo */
+    .markdown-body .highlight .vc { color: #f8f8f2 } /* Name.Variable.Class */
+    .markdown-body .highlight .vg { color: #f8f8f2 } /* Name.Variable.Global */
+    .markdown-body .highlight .vi { color: #f8f8f2 } /* Name.Variable.Instance */
+    .markdown-body .highlight .il { color: #ae81ff } /* Literal.Number.Integer.Long */
+    .markdown-body .highlight .gh { } /* Generic Heading & Diff Header */
+    .markdown-body .highlight .gu { color: #75715e; } /* Generic.Subheading & Diff Unified/Comment? */
+    .markdown-body .highlight .gd { color: #f92672; } /* Generic.Deleted & Diff Deleted */
+    .markdown-body .highlight .gi { color: #a6e22e; } /* Generic.Inserted & Diff Inserted */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--color)
+}
+
+.plain {
+    background-color: var(--plain-background-color);
+    border-color: var(--plain-border-color);
+    color: var(--plain-color);
+}
+.plain:focus {
+    background-color: var(--plain-focus-background-color);
+    border-color: var(--plain-focus-border-color);
+    color: var(--plain-focus-color);
+}
+
+.emphasised {
+    background-color: var(--emphasised-background-color);
+    border-color: var(--emphasised-border-color);
+    color: var(--emphasised-color);
+}
+.emphasised:focus {
+    background-color: var(--emphasised-focus-background-color);
+    border-color: var(--emphasised-focus-border-color);
+    color: var(--emphasised-focus-color);
+}
+
+.todo {
+    background-color: var(--todo-background-color);
+    border-color: var(--todo-border-color);
+    color: var(--todo-color);
+}
+.info {
+    background-color: var(--info-background-color);
+    border-color: var(--info-border-color);
+    color: var(--info-color);
+}
+.tip {
+    background-color: var(--tip-background-color);
+    border-color: var(--tip-border-color);
+    color: var(--tip-color);
+}
+.warning {
+    background-color: var(--warning-background-color);
+    border-color: var(--warning-border-color);
+    color: var(--warning-color);
+}
+
 /* General
 -------------------------------------------------- */
+
+button, .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
 
 img, .markdown-body img {
     background-color: transparent;
@@ -31,20 +372,40 @@ aside, .markdown-body aside {
     margin-left: 10px;
 }
 
+/* Theme Mode Selector
+-------------------------------------------------- */
+
+#theme-selector {
+    display: flex;
+    position: relative;
+}
+#theme-selector > i {
+    overflow: hidden;
+    width: 0;
+    transition: width 0.2s ease-in-out;
+    font-size: 24px;
+}
+#theme-selector > i.indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
+#theme-selector > i.theme-active {
+    width: 24px;
+}
+#theme-selector > i.indicator.theme-active {
+    width: 12px;
+}
+
 /* Slider
 -------------------------------------------------- */
 
 /* Based on: https://css-tricks.com/css-only-carousel/ */
 
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.slider .button {
     width: 3rem;
     height: 3rem;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1.5rem;
 }
 
 /* .slider {} */
@@ -52,10 +413,8 @@ aside, .markdown-body aside {
     position: sticky;
     top: 0;
     z-index: 1; /* above other elements */
-
     padding: 10px calc(20px + 3rem); /* between the prev/next buttons */
-    background-color: white;
-
+    background-color: var(--background-color);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -99,50 +458,4 @@ aside, .markdown-body aside {
 
 .callout img.callout-icon {
     padding-right: 10px;
-}
-
-/* Colour Scheme
--------------------------------------------------- */
-
-.plain {
-    background-color: #f7f7f7;
-    border-color: #f2f2f2;
-    color: #8f8f8f;
-}
-.plain:focus {
-    background-color: #f2f2f2;
-    border-color: #ededed;
-    color: #858585;
-}
-
-.emphasised {
-    background-color: #ebebeb;
-    border-color: #e6e6e6;
-    color: #808080;
-}
-.emphasised:focus {
-    background-color: #e6e6e6;
-    border-color: #e0e0e0;
-    color: #787878;
-}
-
-.todo {
-    background-color: #dcf7da;
-    border-color: #caf2bd;
-    color: #378f31;
-}
-.info {
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    color: #31708f;
-}
-.tip {
-    background-color: #f7f7d2;
-    border-color: #f2e8b6;
-    color: #8f8f2b;
-}
-.warning {
-    background-color: #f7d9d9;
-    border-color: #f2bdc6;
-    color: #8f3131;
 }
