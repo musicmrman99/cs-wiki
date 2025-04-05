@@ -25,11 +25,9 @@ Git allows copying the history from any git root directory to another location, 
 It's important to note that this definition of 'git repository' makes it an abstract concept - there is no single location of 'a repository'; a repository is **distributed** across all of its clones.
 
 {% include info.html content="
-**Key Point**: Git doesn't store complete versions of your files (except in the initial commit); it stores the **changes** between versions.
-" %}
+**Key Point**: It is often useful to view commits as the **changes** between versions of the set of tracked files, rather than as complete versions of those files (except the initial commit).
 
-{% include todo.html content="
-The above is technically incorrect, but is close to the implementation. Regardless, it may be worth re-wording to closer match the section on [Views of Commits](#views-of-commits).
+We go into more detail about this later, in the section [Views of Commits](#views-of-commits), but that section will make more sense if you understand more of git's core concepts first.
 " %}
 
 ## Footnotes
