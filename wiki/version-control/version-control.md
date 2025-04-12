@@ -14,14 +14,20 @@ decks:
       ref: vc-git-core-concepts
       title: "Version Control: Git Core Concepts"
       slides:
+      # Relationship to Files
       - vc-repos-and-commits
       - vc-figure-repos-and-commits
       - vc-changes-and-working-tree
       - vc-tracked-files-details
       - vc-figure-worktree-tracking-and-changes
+
+      # Defining History
       - vc-branches-and-head
       - vc-detached-head-and-tags
+      - vc-reachability-and-orphans
       - vc-figure-refs-and-checkout
+
+      # Leveraging History
       - vc-views-of-commits
       - vc-checkout-vs-switch
 ---
