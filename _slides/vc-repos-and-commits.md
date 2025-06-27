@@ -32,7 +32,7 @@ We go into more detail about this later, in the section [Views of Commits](#view
 
 ## Footnotes
 
-[^1]: Possibly all files, or possibly no files.
+[^1]: All files, some files, or no files.
 [^2]: Files within any sub-directory of the git root directory, or any sub-directory of those, etc. can also be tracked by git.
 [^3]: Rather than for each file separately.
 [^4]: A git root directory is always the root directory of a clone, except before the git root directory has an initial commit. A git root directory without an initial commit *has no history* and therefore doesn't contain a repository, doesn't contain a clone, and isn't clonable.

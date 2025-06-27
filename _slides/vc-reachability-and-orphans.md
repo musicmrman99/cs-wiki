@@ -15,18 +15,20 @@ type: info
 
 With the above definitions in hand, we can refine our definition of *orphaned commit*.
 
-Orphaned commits are those that are **unreachable** from any reference (`HEAD`, branch, tag, stash, etc). One way to find which commits are **reachable** is to pick a reference in your clone, then run through the following steps[^1] while making a list of of every commit you point at:
+Orphaned commits are those that are **unreachable** from any reference (`HEAD`, branch, tag, stash, etc). A commit is **reachable** from a reference if, after running through the following steps[^1] while making a list of of every commit you point at, the commit appears on your list:
 
-1. Point at the commit that your chosen revision resolves to.
+1. Point at the commit that your chosen reference resolves to.
 2. If the commit you are pointing at is:
    1. Already on your list of commits, then skip to step 4.
    2. Not based on any other commit, then skip to step 4.
    3. Based on one other commit, then point at that commit.
    4. Based on two other commits, then point at one of them and take a note of the other.
 3. Return to step 2.
-4. If you have taken a note of any commit in step 2(i) that is not scribbled out, then point at any of them, scribble out the note you selected, and return to step 2.
+4. If you have taken a note of any commit in step 2(iv) that is not scribbled out, then point at any of them, scribble out the note you selected, and return to step 2.
 
-Then do this for each reference in your clone, re-using the list of commits you come out with for all references. At this point, any commit you have on your list is reachable from at least one reference. Any commit that is not on your list is unreachable from any reference, ie. orphaned. Git considers all orphaned commits to be 'garbage' and will eventually delete them automatically. You can also tell git to run a **garbage collection**, though this rarely needs to be done manually.
+Even if this is not the process used by git itself, it is one of the simplest ways of understanding reachability.
+
+If you repeat this process for each reference in your clone, re-using the list of commits you come out with for all references, then any commit you have on your list is reachable from at least one reference. Any commit that is not on your list is unreachable from any reference, ie. orphaned. Git considers all orphaned commits to be 'garbage' and will eventually delete them automatically. You can also tell git to run a **garbage collection**, though this rarely needs to be done manually.
 
 ### Terminology: "On A Branch"
 
@@ -36,7 +38,7 @@ In common usage, the phrase "**on a branch**" means different things in differen
 - If someone is talking about a *commit* being 'on' a branch, they usually mean that the commit is reachable from that branch, but is unreachable from the default branch.
 - Occasionally, especially if they are talking about older commits, they may just mean that the commit is reachable from that branch, even if it is also reachable from the default branch.
 
-When in doubt, clarify what was meant. This walk-through will only use the second meaning, except when talking about a commit being 'on' the default branch, in which case it uses the third meaning.
+When in doubt, clarify what was meant. This walk-through only uses the second meaning, except when talking about a commit being 'on' the default branch, in which case it uses the third meaning. If this walk-through needs to refer to reachability in a context that the second meaning would be assumed, then it uses the phrase 'reachable from' instead of 'on'.
 
 ## Footnotes
 
